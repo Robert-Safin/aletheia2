@@ -3,9 +3,9 @@ import { Blob } from "buffer";
 import {Client} from "@googlemaps/google-maps-services-js";
 
 
-const companyProfileId = '4379279419338407581'
-const pid = "ChIJyZ5k81PXcg0RkuB2loZZwzI"
-const userId = "113847325133023374455"
+// const companyProfileId = '4379279419338407581'
+// const pid = "ChIJyZ5k81PXcg0RkuB2loZZwzI"
+// const userId = "113847325133023374455"
 
 
 

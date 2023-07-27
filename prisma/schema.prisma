@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  relationMode = "prisma"
+}
+
+
+
+
+model Owner {
+  id  Int   @id @default(autoincrement())
+  name String
+  email String @unique
+  googleMyBusinessUserId String @unique
+
+  businesses Business[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model GooglePhoto {
+  id Int   @id @default(autoincrement())
+  photoRefence String @unique
+  cloudinaryUrl String
+  businessId Int
+  business Business @relation(fields: [businessId], references: [id])
+  @@index([businessId], name: "businessId")
+}
+
+model Business {
+  id  Int   @id @default(autoincrement())
+
+  locationId String @unique
+
+  locationName String
+  websiteUrl String?
+  phoneNumber String?
+  primaryCategory String
+  addressRegionalCode String?
+  addressLocality String?
+  addressPostalCode String
+  adressLines String?
+  averageRating Float?
+  description String?
+
+  googlePhotos GooglePhoto[]
+
+
+
+  singleEvents SingleEvent[]
+  recurringEvents RecurringEvent[]
+  singleOffers SingleOffer[]
+  recurringOffers RecurringOffer[]
+
+
+  ownerId Int
+  owner Owner @relation(fields: [ownerId], references: [id])
+  @@index([ownerId], name: "ownerId")
+
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+
+
+
+
+
+
+model SingleEvent {
+  id  Int   @id @default(autoincrement())
+
+  businessId Int
+  business Business @relation(fields: [businessId], references: [id])
+  @@index([businessId], name: "businessId")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model RecurringEvent {
+  id  Int   @id @default(autoincrement())
+
+  businessId Int
+  business Business @relation(fields: [businessId], references: [id])
+  @@index([businessId], name: "businessId")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model SingleOffer {
+  id  Int   @id @default(autoincrement())
+
+  businessId Int
+  business Business @relation(fields: [businessId], references: [id])
+  @@index([businessId], name: "businessId")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model RecurringOffer {
+  id  Int   @id @default(autoincrement())
+
+  businessId Int
+  business Business @relation(fields: [businessId], references: [id])
+  @@index([businessId], name: "businessId")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

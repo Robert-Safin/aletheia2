@@ -1,23 +1,17 @@
 "use client";
 import {  useEffect, useState } from "react";
 import { Place } from "@googlemaps/google-maps-services-js";
-import ContainerBlack from "../components/containers/ContainerBlack";
-import ContainerGray from "../components/containers/ContainerGray";
-import XScrollContainer from "../components/home page components/XScrollContainer";
-
+import ContainerBlack from "../../components/ui/containers/ContainerBlack";
+import XScrollContainer from "../../components/home page components/XScrollContainer";
 import {HiOutlineLocationMarker} from "react-icons/hi";
-import VenueCard from "../components/home page components/VenueCard";
-import { HomePageResponse } from "../api/populate/route";
+import {AiOutlineTag} from 'react-icons/ai'
+
   export interface Coordinates {
   latitude: number;
   longitude: number;
 }
 
-export interface HomePageSearchParams {
-  coordinates: Coordinates;
-  radius: number;
-  type: string;
-}
+
 
 const HomePage = () => {
   const [userCoordinates, setUserCoordinates] = useState<Coordinates | null>(null);
@@ -36,48 +30,35 @@ const HomePage = () => {
     }
   });
 
-  useEffect(() => {
-    const populateHomePage = async () => {
-      if (userCoordinates) {
-        const searchParams: HomePageSearchParams = {
-          coordinates: userCoordinates,
-          radius: radius,
-          type: type,
-        };
-        const response = await fetch("/api/populate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(searchParams),
-        });
-        const data = await response.json() as HomePageResponse
-        setVenues(data.venues);
-
-      }
-
-    };
-    populateHomePage();
-  },[userCoordinates, radius, type]);
 
 
 
   return (
-    <ContainerBlack>
+    <>
+      <XScrollContainer category="Offers Today"  icon={<AiOutlineTag className="icon-large"/>}>
 
-
-
-
-      <XScrollContainer icon={<HiOutlineLocationMarker/>}>
-        {venues.map((venue) => (
-        <VenueCard key={venue.place_id} venue={venue}/>
-        ))}
-        {/* <VenueCard venue={venues[0]}/> */}
       </XScrollContainer>
 
+      <XScrollContainer category="Events Today" icon={<AiOutlineTag className="icon-large"/>}>
 
+      </XScrollContainer>
 
-    </ContainerBlack>
+      <XScrollContainer category="Top rated places near you" icon={<AiOutlineTag className="icon-large"/>}>
+
+      </XScrollContainer>
+
+      <XScrollContainer category="Upcoming offers" icon={<AiOutlineTag className="icon-large"/>}>
+
+      </XScrollContainer>
+
+      <XScrollContainer category="Upcoming events" icon={<AiOutlineTag className="icon-large"/>}>
+
+      </XScrollContainer>
+
+      <XScrollContainer category="Places closest to you" icon={<AiOutlineTag className="icon-large"/>}>
+
+      </XScrollContainer>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+import { jomhuria } from "@/app/layout";
 import { FC } from "react";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 
 export const MainHeader:FC<Props> = (props) => {
   return (
-    <h2 className="text-xl text-white">{props.title}</h2>
+    <h2 className={`text-4xl text-white tracking-wide ${jomhuria.className}`}>{props.title}</h2>
   )
 }
 

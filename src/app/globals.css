@@ -2,6 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+@layer components {
+  .btn-primary-wide {
+    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md w-full
+  }
+}
+
+@layer components {
+  .btn-secondary-wide {
+    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md w-full
+  }
+}
+
+@layer components {
+  .btn-primary-small {
+    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md w-1/2
+  }
+}
+
+@layer components {
+  .btn-secondary-small {
+    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md w-1/2
+  }
+}
+
+
+@layer components {
+  .img-small {
+    @apply  rounded-md object-cover w-48 h-48
+  }
+}
+
+@layer components {
+  .img-large {
+    @apply  rounded-md object-cover w-98 h-98
+  }
+}
+
+@layer components {
+  .icon-small {
+    @apply  text-xs text-white
+  }
+}
+
+@layer components {
+  .icon-large {
+    @apply  text-2xl text-white
+  }
+}
+
+
+
+
+
+
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

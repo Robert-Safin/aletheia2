@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { Place } from "@googlemaps/google-maps-services-js";
-import { SecondaryHeader } from "../text elements/Headers";
-import { ImageUrlResponse } from "@/app/api/getImageUrl/route";
+import { SecondaryHeader } from "../ui/text elements/Headers";
 
 interface Props {
   venue: Place;

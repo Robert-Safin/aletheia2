@@ -8,12 +8,12 @@ interface Props {
 
 export const Paragraph:FC<Props> = (props) => {
   return (
-    <p className="text-sm">{props.content}</p>
+    <p className="text-sm text-white">{props.content}</p>
   )
 }
 
 export const SmallText:FC<Props> = (props) => {
   return (
-    <p className="text-xs">{props.content}</p>
+    <p className="text-xs text-white">{props.content}</p>
   )
 }

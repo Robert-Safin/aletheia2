@@ -11,3 +11,40 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   relationMode = "prisma"
 }
+
+
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  cloudinaryPublicId String
+  cloudinaryUrl String
+
+  venueId   Int
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  @@index([venueId], name: "venueId")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Venue {
+  id        Int      @id @default(autoincrement())
+  clerkId   String
+  name      String
+  googlePlaceId String
+  description String? @db.Text
+  formattedAdress String? @db.Text
+  formattedPhoneNumber String?
+  website String?
+  googleMapsUrl String
+  openingHours String? @db.Text
+  categories String?
+  averageRating Float
+  totalReviews Int
+
+
+  photos    Photo[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

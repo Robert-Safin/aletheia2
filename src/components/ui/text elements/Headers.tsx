@@ -16,6 +16,6 @@ export const MainHeader:FC<Props> = (props) => {
 
 export const SecondaryHeader:FC<Props> = (props) => {
   return (
-    <h3 className="text-base text-white">{props.title}</h3>
+    <h3 className="text-base text-white mt-2">{props.title}</h3>
   )
 }

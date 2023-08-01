@@ -1,5 +1,4 @@
 import ContainerGray from "@/components/ui/containers/ContainerGray";
-import { FormLabel, FormTextInput } from "@/components/ui/forms/FormComponents";
 import {
   MainHeader,
   SecondaryHeader,
@@ -50,13 +49,6 @@ const FigrmaComponents = async () => {
       <br />
 
 
-      <p>Form Label</p>
-      <FormLabel title="Label title"/>
-      <br />
-
-      <p>Form text input</p>
-      <FormTextInput defaultValue="default value"/>
-      <br />
 
     </ContainerGray>
   );

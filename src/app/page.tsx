@@ -5,8 +5,8 @@ import ContainerGray from '@/components/ui/containers/ContainerGray';
 
 
 const RootPage = async() => {
-  // const user = await currentUser();
-  // console.log(user);
+  const user = await currentUser();
+
 
 
 

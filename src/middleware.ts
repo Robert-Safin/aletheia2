@@ -10,7 +10,9 @@ export default authMiddleware({
     "/signin",
     "/signup",
     "/figma",
-    "/home"
+    "/home",
+    "/settings",
+    "/map"
   ],
 });
 

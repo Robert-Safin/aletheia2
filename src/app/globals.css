@@ -37,7 +37,7 @@
 
 @layer components {
   .img-large {
-    @apply  rounded-md object-cover w-98 h-98
+    @apply  rounded-md object-cover w-96 h-96
   }
 }
 
@@ -50,6 +50,18 @@
 @layer components {
   .icon-large {
     @apply  text-2xl text-white
+  }
+}
+
+@layer components {
+  .form-input {
+    @apply  text-black rounded-md py-1 px-2
+  }
+}
+
+@layer components {
+  .form-label {
+    @apply text-white
   }
 }
 

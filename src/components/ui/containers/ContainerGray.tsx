@@ -8,7 +8,7 @@ interface Props {
 
 const ContainerGray:FC<Props> = (props) => {
   return (
-    <div className="container bg-grayPrimary p-2 mx-auto h-screen">
+    <div className="container rounded-md bg-grayPrimary p-2 mx-auto h-screen">
       {props.children}
     </div>
   )

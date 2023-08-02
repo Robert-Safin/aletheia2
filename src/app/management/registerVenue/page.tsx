@@ -90,8 +90,8 @@ const RegisterVenuePage: FC = async () => {
           categories: venue.types!.join(","),
           averageRating: venue.rating!,
           totalReviews: venue.user_ratings_total!,
-          latitude: venue.geometry!.location.lat!,
-          longitude: venue.geometry!.location.lng!,
+          latitude: venue.geometry!.location.lat,
+          longitude: venue.geometry!.location.lng,
           clerkId: user!.id,
           photos: {
             create: {

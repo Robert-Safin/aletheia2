@@ -9,8 +9,6 @@ const RootPage = async() => {
 
 
 
-
-
   return (
     <ContainerGray>
     <Link className='btn-primary-wide' href={`/signin`}>Sign in</Link>

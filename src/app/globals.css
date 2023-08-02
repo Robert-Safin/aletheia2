@@ -6,7 +6,7 @@
 
 @layer components {
   .btn-primary-wide {
-    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md w-full
+    @apply bg-actionPeach text-white text-sm tracking-widest py-3 px-6 rounded-md w-full
   }
 }
 
@@ -18,13 +18,13 @@
 
 @layer components {
   .btn-primary-small {
-    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md w-1/2
+    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md
   }
 }
 
 @layer components {
   .btn-secondary-small {
-    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md w-1/2
+    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md
   }
 }
 
@@ -37,7 +37,7 @@
 
 @layer components {
   .img-large {
-    @apply  rounded-md object-cover w-96 h-96
+    @apply  rounded-md object-cover w-[355px] h-[355px]
   }
 }
 
@@ -89,6 +89,11 @@
   }
 }
 
+@layer components {
+  .category {
+    @apply text-sm text-white font-sans bg-graySecondary p-1 rounded-md mr-2 mb-2
+  }
+}
 
 
 

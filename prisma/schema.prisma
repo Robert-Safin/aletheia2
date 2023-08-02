@@ -41,6 +41,8 @@ model Venue {
   categories String?
   averageRating Float
   totalReviews Int
+  latitude Float
+  longitude Float
 
 
   photos    Photo[]

@@ -6,6 +6,12 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
+    "/signin",
+    '/signup',
+    '/home',
+    '/map',
+    '/figma'
+
 
   ]
 });

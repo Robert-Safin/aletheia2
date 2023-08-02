@@ -2,22 +2,23 @@
 
 import { FC, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { Place } from "@googlemaps/google-maps-services-js";
 import Image from "next/image";
 import { BsStarFill, BsStarHalf, BsStar, BsInfoCircle } from "react-icons/bs";
 import RatingToStars from "../ui/icons/RatingToStars";
 import ContainerGray from "../ui/containers/ContainerGray";
 import { Venue } from "@prisma/client";
-
+import { useTransition } from "react";
+import { GooglePlaceError } from "@/app/management/registerVenue/page";
 interface Props {
-  findListingOnGoogle: (placeId: string) => Promise<Place>;
+  findListingOnGoogle: (placeId: string) => Promise<Place | GooglePlaceError>;
   createVenue: (venue: Place) => Promise<void>;
 }
 
 const RegisterVenueForm: FC<Props> = (props) => {
-  const [place, setPlace] = useState<Place>();
+  const [place, setPlace] = useState<Place | null>();
   const [tooltipIsActive, setTooltipIsActive] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleTooltipClick = () => {
     setTooltipIsActive(true);
@@ -25,10 +26,6 @@ const RegisterVenueForm: FC<Props> = (props) => {
       setTooltipIsActive(false);
     }, 8000);
   };
-
-  const validationSchema = Yup.object().shape({
-    placeId: Yup.string().required("ID is required"),
-  });
 
   const formatOpeningHours = place?.opening_hours?.weekday_text.map(
     (day, index) => {
@@ -45,10 +42,23 @@ const RegisterVenueForm: FC<Props> = (props) => {
       <div className="bg-grayPrimary rounded-md p-2">
         <Formik
           initialValues={{ placeId: "ChIJSQmJjmo90i0RYAAftLe2Y24" }}
-          validationSchema={validationSchema}
-          onSubmit={async (values, { setSubmitting }) => {
-            const place = await props.findListingOnGoogle(values.placeId);
-            setPlace(place);
+          onSubmit={async (values, { setSubmitting, setErrors }) => {
+            if (values.placeId.trim().length === 0) {
+              setErrors({ placeId: "Place ID is required" });
+              setPlace(null);
+              setSubmitting(false);
+              return;
+            }
+            const googlePlaceResponse = await props.findListingOnGoogle(
+              values.placeId
+            );
+            if ("error_message" in googlePlaceResponse) {
+              setErrors({ placeId: googlePlaceResponse.error_message });
+              setPlace(null);
+              setSubmitting(false);
+              return;
+            }
+            setPlace(googlePlaceResponse);
             setSubmitting(false);
           }}
         >
@@ -165,10 +175,16 @@ const RegisterVenueForm: FC<Props> = (props) => {
               </>
             )}
           </div>
+
+          <div className="bg-grayPrimary rounded-md p-2 my-2">
+            <h2 className="secondary-header">Disclaimer</h2>
+            <p className="paragraph">lorem ipsum</p>
+          </div>
+
           <div className="bg-grayPrimary rounded-md p-2 my-2">
             <button
               className="btn-primary-wide"
-              onClick={() => props.createVenue(place)}
+              onClick={async() => await startTransition(async() => await props.createVenue(place))}
             >
               CONFIRM
             </button>

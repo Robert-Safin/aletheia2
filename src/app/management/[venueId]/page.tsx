@@ -41,7 +41,7 @@ const ManagementViewVenuePage: FC<Props> = async (props) => {
       <div className="container bg-grayPrimary h-max pb-16 px-4">
         <Image
           className="img-large mx-auto"
-          src={venue!.photos[0].cloudinaryUrl}
+          src={venue!.venuePhotos[0].cloudinaryUrl}
           alt="photo"
           width={1000}
           height={1000}
@@ -145,7 +145,7 @@ const findVenue = async (venueId: number) => {
       id: venueId,
     },
     include: {
-      photos: true,
+      venuePhotos: true,
     },
   });
   return venue;

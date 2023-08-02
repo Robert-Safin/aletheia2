@@ -1,4 +1,4 @@
-import { Photo, Venue } from "@prisma/client";
+import { VenuePhoto, Venue } from "@prisma/client";
 import Image from "next/image";
 import { FC } from "react";
 import RatingToStars from "../ui/icons/RatingToStars";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 interface Props {
   venue: Venue & {
-    photos: Photo[];
+    venuePhotos: VenuePhoto[];
   };
 }
 
@@ -16,7 +16,7 @@ const VenueManagementCard: FC<Props> = async (props) => {
   return (
     <div className="bg-grayPrimary container mx-auto">
       <Image
-        src={props.venue.photos[0].cloudinaryUrl}
+        src={props.venue.venuePhotos[0].cloudinaryUrl}
         alt="Venue Image"
         width={1000}
         height={10000}

@@ -93,7 +93,7 @@ const RegisterVenuePage: FC = async () => {
           latitude: venue.geometry!.location.lat,
           longitude: venue.geometry!.location.lng,
           clerkId: user!.id,
-          photos: {
+          venuePhotos: {
             create: {
               cloudinaryUrl: cloudinaryResponse.secure_url,
               cloudinaryPublicId: cloudinaryResponse.public_id,

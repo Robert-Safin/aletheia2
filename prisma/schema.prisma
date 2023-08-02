@@ -14,7 +14,7 @@ datasource db {
 
 
 
-model Photo {
+model VenuePhoto {
   id        Int      @id @default(autoincrement())
   cloudinaryPublicId String
   cloudinaryUrl String
@@ -22,6 +22,58 @@ model Photo {
   venueId   Int
   venue     Venue    @relation(fields: [venueId], references: [id])
   @@index([venueId], name: "venueId")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SingleEventPhoto {
+  id        Int      @id @default(autoincrement())
+  cloudinaryPublicId String
+  cloudinaryUrl String
+
+  singleEventId   Int
+  singleEvent     SingleEvent    @relation(fields: [singleEventId], references: [id])
+  @@index([singleEventId], name: "singleEventId")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MultipleEventPhoto {
+  id        Int      @id @default(autoincrement())
+  cloudinaryPublicId String
+  cloudinaryUrl String
+
+  multipleEventId   Int
+  multipleEvent     MultipleEvent    @relation(fields: [multipleEventId], references: [id])
+  @@index([multipleEventId], name: "multipleEventId")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SingleOfferPhoto {
+  id        Int      @id @default(autoincrement())
+  cloudinaryPublicId String
+  cloudinaryUrl String
+
+  singleOfferId   Int
+  singleOffer     SingleOffer    @relation(fields: [singleOfferId], references: [id])
+  @@index([singleOfferId], name: "singleOfferId")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MultipleOfferPhoto {
+  id        Int      @id @default(autoincrement())
+  cloudinaryPublicId String
+  cloudinaryUrl String
+
+  multipleOfferId   Int
+  multipleOffer     MultipleOffer    @relation(fields: [multipleOfferId], references: [id])
+  @@index([multipleOfferId], name: "multipleOfferId")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -45,7 +97,74 @@ model Venue {
   longitude Float
 
 
-  photos    Photo[]
+  venuePhotos    VenuePhoto[]
+  singleEvents SingleEvent[]
+  multipleEvents MultipleEvent[]
+  singleOffers SingleOffer[]
+  multipleOffers MultipleOffer[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model SingleEvent {
+  id        Int      @id @default(autoincrement())
+
+
+  venueId   Int
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  @@index([venueId], name: "venueId")
+
+  singleEventPhoto SingleEventPhoto[]
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MultipleEvent {
+  id        Int      @id @default(autoincrement())
+
+
+  venueId   Int
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  @@index([venueId], name: "venueId")
+
+  multipleEventPhoto MultipleEventPhoto[]
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SingleOffer {
+  id        Int      @id @default(autoincrement())
+
+
+  venueId   Int
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  @@index([venueId], name: "venueId")
+
+  singleOfferPhoto SingleOfferPhoto[]
+
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MultipleOffer {
+  id        Int      @id @default(autoincrement())
+
+
+  venueId   Int
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  @@index([venueId], name: "venueId")
+
+  multipleOfferPhoto MultipleOfferPhoto[]
+
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

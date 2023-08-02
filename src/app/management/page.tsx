@@ -15,7 +15,7 @@ const ManagementPage: FC = async () => {
       clerkId: user?.id,
     },
     include: {
-      photos: true,
+      venuePhotos: true,
     },
   });
 

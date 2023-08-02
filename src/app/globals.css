@@ -67,25 +67,25 @@
 
 @layer components {
   .main-header {
-    @apply text-4xl text-white tracking-wide
+    @apply text-xl text-white tracking-wide font-serif
   }
 }
 
 @layer components {
   .secondary-header {
-    @apply text-base text-white mt-2
+    @apply text-base text-white mt-2 font-mono
   }
 }
 
 @layer components {
   .paragraph {
-    @apply text-sm text-white
+    @apply text-sm text-white font-sans
   }
 }
 
 @layer components {
   .small-text {
-    @apply text-xs text-white
+    @apply text-xs text-white font-sans
   }
 }
 

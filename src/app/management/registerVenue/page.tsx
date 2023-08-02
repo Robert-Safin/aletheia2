@@ -101,7 +101,6 @@ const RegisterVenuePage: FC = async () => {
           },
         },
       });
-      console.log(newVenue);
 
       prisma.$disconnect();
       revalidateTag("/management");

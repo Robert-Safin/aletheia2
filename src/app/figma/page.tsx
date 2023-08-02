@@ -1,9 +1,5 @@
 import ContainerGray from "@/components/ui/containers/ContainerGray";
-import {
-  MainHeader,
-  SecondaryHeader,
-} from "@/components/ui/text elements/Headers";
-import { Paragraph, SmallText } from "@/components/ui/text elements/Texts";
+
 import { AiTwotoneStar } from "react-icons/ai";
 
 const FigrmaComponents = async () => {
@@ -12,23 +8,17 @@ const FigrmaComponents = async () => {
   return (
     <ContainerGray>
 
-      <p>main header</p>
-      <MainHeader title="main header" />
+      <h1 className="main-header">main header</h1>
       <br />
-      <p>secondary header</p>
-      <SecondaryHeader title=" secondary header" />
+      <h2 className="secondary-header">secondary header</h2>
       <br />
-      <p>paragraph</p>
-      <Paragraph content="paragraph" />
+      <p className="paragraph">paragraph</p>
       <br />
-      <p>small text</p>
-      <SmallText content="text" />
+      <p className="small-text">small text</p>
       <br />
-      <p>small icon</p>
-      <AiTwotoneStar />
+      <AiTwotoneStar className="icon-large"/>
       <br />
-      <p>big icon</p>
-      <AiTwotoneStar />
+      <AiTwotoneStar className="icon-small"/>
       <br />
 
       <p>primary wide button</p>

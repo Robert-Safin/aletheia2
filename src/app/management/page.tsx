@@ -26,7 +26,7 @@ const ManagementPage: FC = async () => {
   });
 
   return (
-    <div className="bg-grayPrimary">
+    <ContainerGray>
       <div className="flex flex-col w-full text-center">
         <h2 className="secondary-header">Welcome</h2>
         <h1 className="main-header my-1">{user?.firstName}</h1>
@@ -46,7 +46,7 @@ const ManagementPage: FC = async () => {
             <VenueManagementCard key={venue.id} venue={venue} />
           ))}
       </div>
-    </div>
+    </ContainerGray>
   );
 };
 

@@ -110,12 +110,12 @@ const RegisterVenuePage: FC = async () => {
   };
 
   return (
-    <ContainerBlack>
+    <ContainerGray>
       <RegisterVenueForm
         findListingOnGoogle={findListingOnGoogle}
         createVenue={createVenue}
       />
-    </ContainerBlack>
+    </ContainerGray>
   );
 };
 

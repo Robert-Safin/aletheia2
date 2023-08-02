@@ -26,6 +26,7 @@ const FigrmaComponents = async () => {
 
 
 
+
     </ContainerGray>
   );
 };

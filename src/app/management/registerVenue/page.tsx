@@ -40,7 +40,7 @@ const RegisterVenuePage: FC = async () => {
     }
 
     const prisma = new PrismaClient();
-    const existingVenue = await prisma.venue.findUnique({
+    const existingVenue = await prisma.venue.findFirst({
       where: {
         googlePlaceId: placeData.place_id!,
       }

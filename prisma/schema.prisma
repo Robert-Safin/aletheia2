@@ -31,7 +31,7 @@ model Venue {
   id        Int      @id @default(autoincrement())
   clerkId   String
   name      String
-  googlePlaceId String @unique
+  googlePlaceId String
   description String? @db.Text
   formattedAdress String? @db.Text
   formattedPhoneNumber String?

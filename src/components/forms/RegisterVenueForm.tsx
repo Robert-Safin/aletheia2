@@ -4,12 +4,10 @@ import { FC, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Place } from "@googlemaps/google-maps-services-js";
-import { MainHeader, SecondaryHeader } from "../ui/text elements/Headers";
 import Image from "next/image";
 import { BsStarFill, BsStarHalf, BsStar, BsInfoCircle } from "react-icons/bs";
 import RatingToStars from "../ui/icons/RatingToStars";
 import ContainerGray from "../ui/containers/ContainerGray";
-import { Paragraph, SmallText } from "../ui/text elements/Texts";
 import { Venue } from "@prisma/client";
 
 interface Props {
@@ -24,19 +22,23 @@ const RegisterVenueForm: FC<Props> = (props) => {
   const handleTooltipClick = () => {
     setTooltipIsActive(true);
     setTimeout(() => {
-    setTooltipIsActive(false);
+      setTooltipIsActive(false);
     }, 8000);
-  }
+  };
 
   const validationSchema = Yup.object().shape({
     placeId: Yup.string().required("ID is required"),
   });
 
-  const formatOpeningHours = place?.opening_hours?.weekday_text.map((day, index) => {
-    return <Paragraph content={day} key={index} />;
-  });
-
-
+  const formatOpeningHours = place?.opening_hours?.weekday_text.map(
+    (day, index) => {
+      return (
+        <p className="paragraph" key={index}>
+          {day}
+        </p>
+      );
+    }
+  );
 
   return (
     <>
@@ -61,11 +63,19 @@ const RegisterVenueForm: FC<Props> = (props) => {
                     className="icon-small mx-2"
                     onClick={handleTooltipClick}
                   />
-                  {tooltipIsActive && <p className="text-white text-xs">
-                    You can find your Place ID by following these instructions on <a className="underline" target="_blank" href="https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder">here.</a>
+                  {tooltipIsActive && (
+                    <p className="text-white text-xs">
+                      You can find your Place ID by following these instructions
+                      on{" "}
+                      <a
+                        className="underline"
+                        target="_blank"
+                        href="https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder"
+                      >
+                        here.
+                      </a>
                     </p>
-                    }
-
+                  )}
                 </div>
 
                 <Field type="text" name="placeId" className="form-input" />
@@ -92,18 +102,20 @@ const RegisterVenueForm: FC<Props> = (props) => {
       {place && (
         <>
           <div className="bg-grayPrimary rounded-md p-2 my-2">
-            <MainHeader title={place!.name!} />
+            <h2 className="secondary-header">{place!.name!}</h2>
             <div className="flex space-x-4 items-center mb-2">
               <RatingToStars rating={place.rating!} />
-              <SmallText
-                content={String(place.user_ratings_total) + " ratings"}
-              />
+              <p className="small-text">
+                {String(place.user_ratings_total) + " ratings"}
+              </p>
             </div>
 
             {place.photos![0].photo_reference && (
               <>
                 <Image
-                  src={`data:image/jpeg;base64,${place.photos![0].photo_reference}`}
+                  src={`data:image/jpeg;base64,${
+                    place.photos![0].photo_reference
+                  }`}
                   alt="image"
                   width={1000}
                   height={1000}
@@ -113,52 +125,56 @@ const RegisterVenueForm: FC<Props> = (props) => {
             )}
             {place.formatted_address && (
               <>
-                <SecondaryHeader title="Address" />
-                <Paragraph content={place.formatted_address!} />
+                <h2 className="secondary-header">Address</h2>
+                <p className="paragraph">{place.formatted_address!}</p>
               </>
             )}
 
             {place.formatted_phone_number && (
               <>
-                <SecondaryHeader title="Phone" />
-                <Paragraph content={place.formatted_phone_number!} />
+                <h2 className="secondary-header">Phone</h2>
+                <p className="paragraph">{place.formatted_phone_number!}</p>
               </>
             )}
 
             {place.website && (
               <>
-                <SecondaryHeader title="Website" />
-                <Paragraph content={place.website!} />
+                <h2 className="secondary-header">Website</h2>
+                <p className="paragraph">{place.website!}</p>
               </>
             )}
 
             {place.url && (
               <>
-                <SecondaryHeader title="Google maps URL" />
-                <Paragraph content={place.url!} />
+                <h2 className="secondary-header">Google maps URL</h2>
+                <p className="paragraph">{place.url!}</p>
               </>
             )}
 
             {place.opening_hours && (
               <>
-                <SecondaryHeader title="Opening hours" />
+                <h2 className="secondary-header">Opening hours</h2>
                 {formatOpeningHours}
               </>
             )}
 
             {place.types && (
               <>
-                <SecondaryHeader title="Categories" />
-                <Paragraph content={place.types!.join(", ")} />
+                <h2 className="secondary-header">Categories</h2>
+                <p className="paragraph">{place.types!.join(", ")}</p>
               </>
             )}
           </div>
           <div className="bg-grayPrimary rounded-md p-2 my-2">
-            <button className="btn-primary-wide" onClick={() => props.createVenue(place)}>CONFIRM</button>
+            <button
+              className="btn-primary-wide"
+              onClick={() => props.createVenue(place)}
+            >
+              CONFIRM
+            </button>
           </div>
         </>
       )}
-
     </>
   );
 };

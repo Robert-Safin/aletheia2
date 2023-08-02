@@ -1,6 +1,5 @@
 import RegisterVenueForm from "@/components/forms/RegisterVenueForm";
 import ContainerGray from "@/components/ui/containers/ContainerGray";
-import { MainHeader } from "@/components/ui/text elements/Headers";
 import { Place } from "@googlemaps/google-maps-services-js";
 import { FC } from "react";
 import { Buffer } from 'buffer';
@@ -63,6 +62,7 @@ const RegisterVenuePage: FC = async() => {
         }
       })
     }
+
 
 };
 

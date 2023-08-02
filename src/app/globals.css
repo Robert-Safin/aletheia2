@@ -65,6 +65,29 @@
   }
 }
 
+@layer components {
+  .main-header {
+    @apply text-4xl text-white tracking-wide
+  }
+}
+
+@layer components {
+  .secondary-header {
+    @apply text-base text-white mt-2
+  }
+}
+
+@layer components {
+  .paragraph {
+    @apply text-sm text-white
+  }
+}
+
+@layer components {
+  .small-text {
+    @apply text-xs text-white
+  }
+}
 
 
 

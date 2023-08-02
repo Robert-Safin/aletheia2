@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { Place } from "@googlemaps/google-maps-services-js";
-import { SecondaryHeader } from "../ui/text elements/Headers";
 
 interface Props {
   venue: Place;
@@ -46,7 +45,7 @@ const VenueCard: FC<Props> = (props) => {
     <>
     {/* <img src={imageUrl!} alt={props.venue.name!} width={500} height={500}/> */}
 
-      <SecondaryHeader title={props.venue.name!} />
+      <h2 className="secondary-header">{props.venue.name}</h2>
     </>
   );
 };

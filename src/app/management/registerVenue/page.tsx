@@ -39,6 +39,21 @@ const RegisterVenuePage: FC = async () => {
       return gogglePlaceError as GooglePlaceError;
     }
 
+    const prisma = new PrismaClient();
+    const existingVenue = await prisma.venue.findUnique({
+      where: {
+        googlePlaceId: placeData.place_id!,
+      }
+    })
+    prisma.$disconnect();
+
+    if (existingVenue) {
+      const gogglePlaceError = {
+        error_message: "Venue already exists",
+      };
+      return gogglePlaceError as GooglePlaceError;
+    }
+
     const firstPhotoReference = placeData.photos![0].photo_reference;
     const photoResponse = await fetch(
       `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${firstPhotoReference}&key=${process.env.GOOGLE_MAPS_API_KEY}`

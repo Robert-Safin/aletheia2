@@ -121,7 +121,7 @@ const ManagementViewVenuePage: FC<Props> = async (props) => {
 
 export default ManagementViewVenuePage;
 
-export const isOwner = async (venueId: number, userClerkId: string) => {
+const isOwner = async (venueId: number, userClerkId: string) => {
   const prisma = new PrismaClient();
   const venues = await prisma.venue.findMany({
     where: {

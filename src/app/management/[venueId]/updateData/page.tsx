@@ -1,3 +1,4 @@
+import ManagementRefreshGoogle from "@/components/management/ManagementRefreshGoogle";
 import ManagementUpdateDataForm from "@/components/management/ManagementUpdateDataForm";
 import BackLink from "@/components/ui/back link/BackLink";
 import ContainerGray from "@/components/ui/containers/ContainerGray"
@@ -71,6 +72,47 @@ const updateVenueDataFromOwner = async (data:UpdateVenueDataFromClient) => {
   redirect(`/management/${data.venueId}`)
 }
 
+const refreshGoogleData = async (venueId: number) => {
+  'use server'
+  const prisma = new PrismaClient();
+  const venue = await prisma.venue.findUnique({
+    where: {
+      id: venueId
+    }
+  })
+  const googlePlaceId = venue?.googlePlaceId
+
+  const response = await fetch(
+    `https://maps.googleapis.com/maps/api/place/details/json?place_id=${googlePlaceId}&key=${process.env.GOOGLE_MAPS_API_KEY}`
+  );
+
+  const newVenueData = await response.json();
+
+  const updateVenue = await prisma.venue.update({
+    where: {
+      id: venueId
+    },
+    data: {
+      name: newVenueData.result.name,
+      formattedAdress: newVenueData.result.formatted_address,
+      formattedPhoneNumber: newVenueData.result.formatted_phone_number,
+      website: newVenueData.result.website,
+      googleMapsUrl: newVenueData.result.url,
+      openingHours: newVenueData.result.opening_hours!.weekday_text!.join("\n"),
+      averageRating: newVenueData.result.rating,
+      totalReviews: newVenueData.result.user_ratings_total,
+      latitude: newVenueData.result.geometry.location.lat,
+      longitude: newVenueData.result.geometry.location.lng,
+    }
+  })
+
+  await prisma.$disconnect();
+  revalidatePath(`/management/${venueId}`)
+  redirect(`/management/${venueId}`)
+
+
+}
+
 
 const UpdateVenueDataPage:FC<Props> = async(props) => {
   const user = await currentUser();
@@ -90,6 +132,7 @@ const UpdateVenueDataPage:FC<Props> = async(props) => {
   return (
     <ContainerGray>
       <BackLink href={`/management/${props.params.venueId}`}name="Back to venue"/>
+      <ManagementRefreshGoogle refreshGoogleData={refreshGoogleData} venueId={Number(props.params.venueId)}/>
       <ManagementUpdateDataForm venue={venue!} updateVenueDataFromOwner={updateVenueDataFromOwner}/>
 
     </ContainerGray>

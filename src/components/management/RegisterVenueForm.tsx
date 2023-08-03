@@ -4,11 +4,12 @@ import { FC, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Place } from "@googlemaps/google-maps-services-js";
 import Image from "next/image";
-import {BsInfoCircle } from "react-icons/bs";
+import { BsInfoCircle } from "react-icons/bs";
 import RatingToStars from "../ui/icons/RatingToStars";
 import { useTransition } from "react";
 import { GooglePlaceError } from "@/app/management/registerVenue/page";
 import { useRouter } from "next/navigation";
+import LoadingButton from "../ui/loading spinner/LoadingButton";
 interface Props {
   findListingOnGoogle: (placeId: string) => Promise<Place | GooglePlaceError>;
   createVenue: (venue: Place) => Promise<void>;
@@ -18,6 +19,9 @@ const RegisterVenueForm: FC<Props> = (props) => {
   const [place, setPlace] = useState<Place | null>();
   const [tooltipIsActive, setTooltipIsActive] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
+  const [buttonLoading, setButtonIsLoading] = useState(false);
+  const [buttonLoading2, setButtonIsLoading2] = useState(false);
+
   const router = useRouter();
 
   const handleTooltipClick = () => {
@@ -37,13 +41,11 @@ const RegisterVenueForm: FC<Props> = (props) => {
     }
   );
 
-  const handleSubmit =  () => {
-    startTransition(async()=> await props.createVenue(place!))
-    router.refresh()
-  }
-
-
-
+  const handleSubmit = () => {
+    setButtonIsLoading2(true);
+    startTransition(async () => await props.createVenue(place!));
+    router.refresh();
+  };
 
   return (
     <>
@@ -55,8 +57,10 @@ const RegisterVenueForm: FC<Props> = (props) => {
               setErrors({ placeId: "Place ID is required" });
               setPlace(null);
               setSubmitting(false);
+              setButtonIsLoading(false);
               return;
             }
+            setButtonIsLoading(true);
             const googlePlaceResponse = await props.findListingOnGoogle(
               values.placeId
             );
@@ -64,9 +68,11 @@ const RegisterVenueForm: FC<Props> = (props) => {
               setErrors({ placeId: googlePlaceResponse.error_message });
               setPlace(null);
               setSubmitting(false);
+              setButtonIsLoading(false);
               return;
             }
             setPlace(googlePlaceResponse);
+            setButtonIsLoading(false);
             setSubmitting(false);
           }}
         >
@@ -109,7 +115,11 @@ const RegisterVenueForm: FC<Props> = (props) => {
                   disabled={isSubmitting}
                   className="btn-secondary-wide mt-2"
                 >
-                  SEARCH
+                  {buttonLoading ? (
+                    <LoadingButton type={"primary"} />
+                  ) : (
+                    "SEARCH"
+                  )}
                 </button>
               </div>
             </Form>
@@ -190,11 +200,8 @@ const RegisterVenueForm: FC<Props> = (props) => {
           </div>
 
           <div className="bg-grayPrimary rounded-md p-2 my-2">
-            <button
-              className="btn-primary-wide"
-              onClick={handleSubmit}
-            >
-              CONFIRM
+            <button className="btn-primary-wide" onClick={handleSubmit}>
+              {buttonLoading2 ? <LoadingButton type={"secondary"} /> : "SUBMIT"}
             </button>
           </div>
         </>

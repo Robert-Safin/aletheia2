@@ -1,9 +1,11 @@
 "use client";
 import { Venue } from "@prisma/client";
-import { FC, useTransition } from "react";
+import { FC, useState, useTransition } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { UpdateVenueDataFromClient } from "@/app/management/[venueId]/updateData/page";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "../ui/loading spinner/LoadingSpinner";
+import LoadingButton from "../ui/loading spinner/LoadingButton";
 interface Props {
   venue: Venue;
   updateVenueDataFromOwner: (data: UpdateVenueDataFromClient) => void
@@ -11,6 +13,7 @@ interface Props {
 
 const ManagementUpdateDataForm: FC<Props> = (props) => {
   const [transition, startTransition] = useTransition()
+  const [buttonLoading, setButtonIsLoading] = useState(false)
   const router = useRouter();
 
   const existingDescription = props.venue.description ? props.venue.description : "";
@@ -46,7 +49,9 @@ const ManagementUpdateDataForm: FC<Props> = (props) => {
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           if (values.description.length > 1000) {
             setErrors({ description: "Description must be less than 1000 characters." });
+            setButtonIsLoading(true)
             setSubmitting(false);
+            return
           }
 
           const newCategories = [values.category1, values.category2, values.category3, values.category4, values.category5, values.category6].filter((category) => category !== "");
@@ -55,17 +60,25 @@ const ManagementUpdateDataForm: FC<Props> = (props) => {
             if (newCategories.length > 6) {
               setErrors({ category1: "You can only have up to 6 categories." });
               setSubmitting(false);
+              return
             }
+            if (values.category1.length > 17 || values.category2.length > 17 || values.category3.length > 17 || values.category4.length > 17 || values.category5.length > 17 || values.category6.length > 17) {
+              setErrors({ category1: "Categories must be less than 17 characters." });
+              setSubmitting(false);
+              return
+            }
+
             if (newCategories.length === 0) {
               setErrors({ category1: "You must have at least 1 category." });
               setSubmitting(false);
+              return
             }
           }
-
+          setButtonIsLoading(true)
           startTransition(()=> props.updateVenueDataFromOwner({ description: values.description, categories: newCategories.join(","), venueId: props.venue.id } as UpdateVenueDataFromClient))
           router.refresh()
-
           setSubmitting(false);
+
         }}
       >
         {({ isSubmitting }) => (
@@ -107,9 +120,9 @@ const ManagementUpdateDataForm: FC<Props> = (props) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-secondary-wide mt-2"
+              className="btn-primary-wide mt-8"
             >
-              UPDATE
+            {buttonLoading ? <LoadingButton type="secondary"/> : "UPDATE"}
             </button>
           </Form>
         )}

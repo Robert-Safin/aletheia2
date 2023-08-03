@@ -1,8 +1,10 @@
+'use client'
 import ContainerGray from "@/components/ui/containers/ContainerGray";
 
 import { AiTwotoneStar } from "react-icons/ai";
+import { Blocks } from "react-loader-spinner";
 
-const FigrmaComponents = async () => {
+const FigrmaComponents =  () => {
 
 
   return (
@@ -25,6 +27,14 @@ const FigrmaComponents = async () => {
       <button className="btn-secondary-small">BUTTON</button>
 
 
+    <Blocks
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="blocks-loading"
+    wrapperStyle={{}}
+    wrapperClass="blocks-wrapper"
+  />
 
 
     </ContainerGray>

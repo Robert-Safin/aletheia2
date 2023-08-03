@@ -1,0 +1,116 @@
+.primary {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 15px;
+}
+.primary div {
+  position: absolute;
+  top: 5px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #F87171;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.primary div:nth-child(1) {
+  left: 8px;
+  animation: primary1 0.6s infinite;
+}
+.primary div:nth-child(2) {
+  left: 8px;
+  animation: primary2 0.6s infinite;
+}
+.primary div:nth-child(3) {
+  left: 32px;
+  animation: primary2 0.6s infinite;
+}
+.primary div:nth-child(4) {
+  left: 56px;
+  animation: primary3 0.6s infinite;
+}
+@keyframes primary1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes primary3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes primary2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+
+
+
+
+
+.secondary {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 15px;
+}
+.secondary div {
+  position: absolute;
+  top: 5px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #E5E5E5;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.secondary div:nth-child(1) {
+  left: 8px;
+  animation: secondary1 0.6s infinite;
+}
+.secondary div:nth-child(2) {
+  left: 8px;
+  animation: secondary2 0.6s infinite;
+}
+.secondary div:nth-child(3) {
+  left: 32px;
+  animation: secondary2 0.6s infinite;
+}
+.secondary div:nth-child(4) {
+  left: 56px;
+  animation: secondary3 0.6s infinite;
+}
+@keyframes secondary1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes secondary3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes secondary2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}

@@ -1,4 +1,4 @@
-import RegisterVenueForm from "@/components/forms/RegisterVenueForm";
+import RegisterVenueForm from "@/components/management/RegisterVenueForm";
 import ContainerGray from "@/components/ui/containers/ContainerGray";
 import { Place } from "@googlemaps/google-maps-services-js";
 import { FC } from "react";
@@ -103,7 +103,6 @@ const RegisterVenuePage: FC = async () => {
       });
 
       prisma.$disconnect();
-
       revalidatePath("/management");
       redirect("/management");
     }

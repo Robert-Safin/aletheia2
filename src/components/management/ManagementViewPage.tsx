@@ -7,17 +7,16 @@ import {
   Venue,
   VenuePhoto,
 } from "@prisma/client";
-import Image from "next/image";
 import Link from "next/link";
 import { FC, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaTags } from "react-icons/fa";
 import { HiOutlineExternalLink, HiOutlineTag } from "react-icons/hi";
-import { IoIosArrowBack } from "react-icons/io";
 import RatingToStars from "../ui/icons/RatingToStars";
 import { BsCalendar2WeekFill } from "react-icons/bs";
 import Modal from "react-modal";
 import BackLink from "../ui/back link/BackLink";
+import ImageCarousel from "../ui/image carousel/ImageCarousel";
 
 Modal.setAppElement("#root");
 
@@ -58,24 +57,26 @@ const ManagementViewPage: FC<Props> = (props) => {
     },
   };
 
+  const formatOpeningHours = props.venue.openingHours!.split("\n");
+
+
+
   return (
     <>
       <div className="bg-grayPrimary h-screen">
-        <BackLink href="/management" name="Your venues"/>
+        <BackLink href="/management" name="Your venues" />
         <div className="container bg-grayPrimary h-max pb-16 px-4">
-          <Image
-            className="img-large mx-auto"
-            src={props.venue!.venuePhotos[0].cloudinaryUrl}
-            alt="photo"
-            width={1000}
-            height={1000}
-          />
+          <ImageCarousel photos={props.venue.venuePhotos} />
           <h1 className="main-header mt-2">{props.venue?.name}</h1>
           <div className="flex items-center mt-2 mb-1">
             <RatingToStars rating={props.venue!.averageRating} />
-            <p className="small-text ml-2">
+            <Link
+              href={props.venue.googleMapsUrl}
+              target="_blank"
+              className="small-text ml-2"
+            >
               {props.venue?.totalReviews} reviews
-            </p>
+            </Link>
           </div>
 
           <div className="flex space-x-4">
@@ -125,7 +126,16 @@ const ManagementViewPage: FC<Props> = (props) => {
           ) : (
             <p className="paragraph">No website</p>
           )}
+          <h2 className="secondary-header mt-4 mb-1">Google page:</h2>
 
+          <Link
+            href={props.venue?.googleMapsUrl}
+            className="flex space-x-2 items-center"
+            target="_blank"
+          >
+          <HiOutlineExternalLink className="icon-small" />
+          <p className="small-text">open link</p>
+          </Link>
           <h2 className="secondary-header mt-4 mb-1">Categories:</h2>
 
           <div className="flex flex-wrap whitespace-nowrap">
@@ -135,6 +145,14 @@ const ManagementViewPage: FC<Props> = (props) => {
               </p>
             ))}
           </div>
+          <h1 className="secondary-header">Hours:</h1>
+          <div className="space-y-1">
+            {props.venue.openingHours && formatOpeningHours.map((day,index) => (
+              <p className="paragraph" key={index}>{day}</p>
+            ))}
+
+          </div>
+
           <div className="flex justify-between space-x-2 mt-4">
             <button className="btn-primary-small w-full">NEW OFFER</button>
             <button className="btn-primary-small w-full">NEW EVENT</button>
@@ -145,6 +163,8 @@ const ManagementViewPage: FC<Props> = (props) => {
           >
             UPDATE
           </button>
+
+
 
           <div className="flex space-x-2 items-center">
             <HiOutlineTag className="icon-large" />
@@ -174,10 +194,9 @@ const ManagementViewPage: FC<Props> = (props) => {
             </button>
           </Link>
 
-            <button className="btn-primary-small w-full bg-red-500">
-              DELETE VENUE
-            </button>
-
+          <button className="btn-primary-small w-full bg-red-500">
+            DELETE VENUE
+          </button>
         </div>
       </Modal>
     </>

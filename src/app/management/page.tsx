@@ -16,6 +16,10 @@ const ManagementPage: FC = async () => {
     },
     include: {
       venuePhotos: true,
+      singleEvents: true,
+      multipleEvents: true,
+      singleOffers: true,
+      multipleOffers: true,
     },
   });
 

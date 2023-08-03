@@ -1,4 +1,4 @@
-import { VenuePhoto, Venue } from "@prisma/client";
+import { VenuePhoto, Venue, SingleEvent } from "@prisma/client";
 import Image from "next/image";
 import { FC } from "react";
 import RatingToStars from "../ui/icons/RatingToStars";
@@ -9,6 +9,10 @@ import Link from "next/link";
 interface Props {
   venue: Venue & {
     venuePhotos: VenuePhoto[];
+    singleEvents: SingleEvent[];
+    multipleEvents: SingleEvent[];
+    singleOffers: SingleEvent[];
+    multipleOffers: SingleEvent[];
   };
 }
 
@@ -32,11 +36,11 @@ const VenueManagementCard: FC<Props> = async (props) => {
       <div className="flex space-x-4 mt-1">
         <div className="flex space-x-2 items-center">
           <BsCalendar2WeekFill className="icon-small"/>
-          <p className="small-text">x events</p>
+          <p className="small-text">{props.venue.singleEvents.length + props.venue.multipleEvents.length} events</p>
         </div>
         <div className="flex space-x-2 items-center">
           <FaTags className="icon-small"/>
-          <p className="small-text">x offers</p>
+          <p className="small-text">{props.venue.singleOffers.length + props.venue.multipleOffers.length} offers</p>
         </div>
       </div>
       <Link href={`/management/${props.venue.id}`}>

@@ -103,8 +103,8 @@ const RegisterVenuePage: FC = async () => {
       });
 
       prisma.$disconnect();
-      revalidateTag("/management");
-      //revalidatePath("/management");
+
+      revalidatePath("/management");
       redirect("/management");
     }
   };

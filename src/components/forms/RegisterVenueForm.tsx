@@ -4,12 +4,11 @@ import { FC, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Place } from "@googlemaps/google-maps-services-js";
 import Image from "next/image";
-import { BsStarFill, BsStarHalf, BsStar, BsInfoCircle } from "react-icons/bs";
+import {BsInfoCircle } from "react-icons/bs";
 import RatingToStars from "../ui/icons/RatingToStars";
-import ContainerGray from "../ui/containers/ContainerGray";
-import { Venue } from "@prisma/client";
 import { useTransition } from "react";
 import { GooglePlaceError } from "@/app/management/registerVenue/page";
+import { useRouter } from "next/navigation";
 interface Props {
   findListingOnGoogle: (placeId: string) => Promise<Place | GooglePlaceError>;
   createVenue: (venue: Place) => Promise<void>;
@@ -19,6 +18,7 @@ const RegisterVenueForm: FC<Props> = (props) => {
   const [place, setPlace] = useState<Place | null>();
   const [tooltipIsActive, setTooltipIsActive] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const handleTooltipClick = () => {
     setTooltipIsActive(true);
@@ -36,6 +36,14 @@ const RegisterVenueForm: FC<Props> = (props) => {
       );
     }
   );
+
+  const handleSubmit =  () => {
+    startTransition(async()=> await props.createVenue(place!))
+    router.refresh()
+  }
+
+
+
 
   return (
     <>
@@ -184,7 +192,7 @@ const RegisterVenueForm: FC<Props> = (props) => {
           <div className="bg-grayPrimary rounded-md p-2 my-2">
             <button
               className="btn-primary-wide"
-              onClick={async() => await startTransition(async() => await props.createVenue(place))}
+              onClick={handleSubmit}
             >
               CONFIRM
             </button>

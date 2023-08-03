@@ -1,14 +1,13 @@
-import ManagementViewPage from "@/components/management/ManagementViewPage";
-import RatingToStars from "@/components/ui/icons/RatingToStars";
+import ContainerGray from "@/components/ui/containers/ContainerGray";
 import UnauthorizedScreen from "@/components/ui/unauthorized/Unauthorized";
 import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
-import { FC } from "react";
+import { FC } from "react"
 
 interface Props {
   params: {
-    venueId: string;
-  };
+    venueId: string
+  }
 }
 const isOwner = async (venueId: number, userClerkId: string) => {
   const prisma = new PrismaClient();
@@ -30,26 +29,10 @@ const isOwner = async (venueId: number, userClerkId: string) => {
   }
   return false;
 
+
 };
 
-const findVenue = async (venueId: number) => {
-  const prisma = new PrismaClient();
-  const venue = await prisma.venue.findUnique({
-    where: {
-      id: venueId,
-    },
-    include: {
-      venuePhotos: true,
-      singleEvents: true,
-      multipleEvents: true,
-      singleOffers: true,
-      multipleOffers: true,
-    },
-  });
-  return venue;
-};
-
-const ManagementViewVenuePage: FC<Props> = async (props) => {
+const UpdateVenuePhotosPage:FC<Props> = async(props) => {
   const user = await currentUser();
   const userClerkId = user?.id;
 
@@ -62,14 +45,13 @@ const ManagementViewVenuePage: FC<Props> = async (props) => {
     return <UnauthorizedScreen />;
   }
 
-
-  const venue = await findVenue(Number(props.params.venueId));
-
-
-
   return (
-    <ManagementViewPage venue={venue!}/>
-  );
-};
+    <ContainerGray>
+      {props.params.venueId}
 
-export default ManagementViewVenuePage;
+    </ContainerGray>
+  )
+}
+
+
+export default UpdateVenuePhotosPage

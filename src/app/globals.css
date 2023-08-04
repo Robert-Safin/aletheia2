@@ -73,7 +73,7 @@
 
 @layer components {
   .secondary-header {
-    @apply text-base text-white mt-2 font-mono
+    @apply text-base text-white font-mono
   }
 }
 

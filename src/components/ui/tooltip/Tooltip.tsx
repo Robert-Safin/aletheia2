@@ -12,7 +12,7 @@ content: ReactElement
 const ToolTip: FC<Props> = (props) => {
   return (
     <>
-      <AiOutlineInfoCircle className="icon-small ml-1" data-tooltip-id={props.tooltipId} />
+      <AiOutlineInfoCircle className="text-white w-4 h-4 ml-2" data-tooltip-id={props.tooltipId} />
       <Tooltip
         id={props.tooltipId}
         place={props.position}

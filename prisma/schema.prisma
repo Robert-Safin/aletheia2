@@ -20,7 +20,7 @@ model VenuePhoto {
   cloudinaryUrl String
 
   venueId   Int
-  venue     Venue    @relation(fields: [venueId], references: [id])
+  venue     Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
   @@index([venueId], name: "venueId")
 
   createdAt DateTime @default(now())
@@ -33,7 +33,7 @@ model SingleEventPhoto {
   cloudinaryUrl String
 
   singleEventId   Int
-  singleEvent     SingleEvent    @relation(fields: [singleEventId], references: [id])
+  singleEvent     SingleEvent    @relation(fields: [singleEventId], references: [id], onDelete: Cascade)
   @@index([singleEventId], name: "singleEventId")
 
   createdAt DateTime @default(now())
@@ -46,7 +46,7 @@ model MultipleEventPhoto {
   cloudinaryUrl String
 
   multipleEventId   Int
-  multipleEvent     MultipleEvent    @relation(fields: [multipleEventId], references: [id])
+  multipleEvent     MultipleEvent    @relation(fields: [multipleEventId], references: [id], onDelete: Cascade)
   @@index([multipleEventId], name: "multipleEventId")
 
   createdAt DateTime @default(now())
@@ -59,7 +59,7 @@ model SingleOfferPhoto {
   cloudinaryUrl String
 
   singleOfferId   Int
-  singleOffer     SingleOffer    @relation(fields: [singleOfferId], references: [id])
+  singleOffer     SingleOffer    @relation(fields: [singleOfferId], references: [id], onDelete: Cascade)
   @@index([singleOfferId], name: "singleOfferId")
 
   createdAt DateTime @default(now())
@@ -72,7 +72,7 @@ model MultipleOfferPhoto {
   cloudinaryUrl String
 
   multipleOfferId   Int
-  multipleOffer     MultipleOffer    @relation(fields: [multipleOfferId], references: [id])
+  multipleOffer     MultipleOffer    @relation(fields: [multipleOfferId], references: [id], onDelete: Cascade)
   @@index([multipleOfferId], name: "multipleOfferId")
 
   createdAt DateTime @default(now())
@@ -113,7 +113,7 @@ model SingleEvent {
 
 
   venueId   Int
-  venue     Venue    @relation(fields: [venueId], references: [id])
+  venue     Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
   @@index([venueId], name: "venueId")
 
   singleEventPhoto SingleEventPhoto[]
@@ -128,7 +128,7 @@ model MultipleEvent {
 
 
   venueId   Int
-  venue     Venue    @relation(fields: [venueId], references: [id])
+  venue     Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
   @@index([venueId], name: "venueId")
 
   multipleEventPhoto MultipleEventPhoto[]
@@ -143,7 +143,7 @@ model SingleOffer {
 
 
   venueId   Int
-  venue     Venue    @relation(fields: [venueId], references: [id])
+  venue     Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
   @@index([venueId], name: "venueId")
 
   singleOfferPhoto SingleOfferPhoto[]
@@ -159,7 +159,7 @@ model MultipleOffer {
 
 
   venueId   Int
-  venue     Venue    @relation(fields: [venueId], references: [id])
+  venue     Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
   @@index([venueId], name: "venueId")
 
   multipleOfferPhoto MultipleOfferPhoto[]

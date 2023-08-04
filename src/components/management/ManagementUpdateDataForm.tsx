@@ -89,7 +89,7 @@ const ManagementUpdateDataForm: FC<Props> = (props) => {
             <label htmlFor="description" className="form-label mt-2 mb-1">
               Description
             </label>
-            <Field as="textarea" rows={20} name="description" className="form-input" placeholder={'Enter a short description about your venue and what you have to offer. Max 1000 charecters.'}/>
+            <Field as="textarea" rows={20} name="description" className="form-input" placeholder={'Enter a short description about your venue and what you have to offer. Max 1000 characters.'}/>
             <ErrorMessage
               name="description"
               component="div"
@@ -101,12 +101,12 @@ const ManagementUpdateDataForm: FC<Props> = (props) => {
               Categories
             </label>
             <div className="grid grid-cols-2 gap-4">
-            <Field type="text" name="category1" className="bg-graySecondary rounded-md w-full p-1 text-white" />
-            <Field type="text" name="category2" className="bg-graySecondary rounded-md w-full p-1 text-white" />
-            <Field type="text" name="category3" className="bg-graySecondary rounded-md w-full p-1 text-white" />
-            <Field type="text" name="category4" className="bg-graySecondary rounded-md w-full p-1 text-white" />
-            <Field type="text" name="category5" className="bg-graySecondary rounded-md w-full p-1 text-white" />
-            <Field type="text" name="category6" className="bg-graySecondary rounded-md w-full p-1 text-white" />
+            <Field type="text" name="category1" className="bg-graySecondary rounded-md w-full p-1 text-white" placeholder='bar'/>
+            <Field type="text" name="category2" className="bg-graySecondary rounded-md w-full p-1 text-white" placeholder='restaurant'/>
+            <Field type="text" name="category3" className="bg-graySecondary rounded-md w-full p-1 text-white" placeholder='bar'/>
+            <Field type="text" name="category4" className="bg-graySecondary rounded-md w-full p-1 text-white" placeholder='beerpong'/>
+            <Field type="text" name="category5" className="bg-graySecondary rounded-md w-full p-1 text-white" placeholder='club'/>
+            <Field type="text" name="category6" className="bg-graySecondary rounded-md w-full p-1 text-white" placeholder='BBQ'/>
 
             </div>
 

@@ -26,7 +26,7 @@ interface Props {
 const Layout: FC<Props> = (props) => {
   return (
     <ClerkProvider>
-      <html lang="en" className="bg-black mb-14 container mx-auto" id="root">
+      <html lang="en" className="bg-grayPrimary mb-12 container mx-auto" id="root">
         <body className={inter.className}>
           {props.children}
           <Navbar />

@@ -34,7 +34,7 @@ const HomePage = () => {
 
 
   return (
-    <>
+    <ContainerBlack>
       <XScrollContainer category="Offers Today"  icon={<AiOutlineTag className="icon-large"/>}>
 
       </XScrollContainer>
@@ -58,7 +58,7 @@ const HomePage = () => {
       <XScrollContainer category="Places closest to you" icon={<AiOutlineTag className="icon-large"/>}>
 
       </XScrollContainer>
-    </>
+    </ContainerBlack>
   );
 };
 

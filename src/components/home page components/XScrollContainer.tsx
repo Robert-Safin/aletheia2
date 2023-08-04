@@ -7,7 +7,7 @@ interface Props {
 
 const XScrollContainer: FC<Props> = (props) => {
   return (
-    <div className="bg-grayPrimary rounded-md h-[266px] m-2 p-2">
+    <div className="bg-grayPrimary rounded-md h-[266px] p-2 mb-2">
       <div className="flex items-center space-x-4">
         {props.icon}
         <h1 className="main-header">{props.category}</h1>

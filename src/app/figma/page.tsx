@@ -1,8 +1,10 @@
 'use client'
 import ContainerGray from "@/components/ui/containers/ContainerGray";
+import LoadingButton from "@/components/ui/loading spinner/LoadingButton";
+import LoadingSpinner from "@/components/ui/loading spinner/LoadingSpinner";
+import ToolTip from "@/components/ui/tooltip/Tooltip";
 
 import { AiTwotoneStar } from "react-icons/ai";
-import { Blocks } from "react-loader-spinner";
 
 const FigrmaComponents =  () => {
 
@@ -27,14 +29,11 @@ const FigrmaComponents =  () => {
       <button className="btn-secondary-small">BUTTON</button>
 
 
-    <Blocks
-    visible={true}
-    height="80"
-    width="80"
-    ariaLabel="blocks-loading"
-    wrapperStyle={{}}
-    wrapperClass="blocks-wrapper"
-  />
+  <br />
+  <br />
+  <br />
+
+  <ToolTip tooltipId="1" position="right" content={ <p className="paragraph">hi mum</p> }/>
 
 
     </ContainerGray>

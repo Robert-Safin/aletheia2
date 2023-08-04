@@ -10,6 +10,8 @@ import { useTransition } from "react";
 import { GooglePlaceError } from "@/app/management/registerVenue/page";
 import { useRouter } from "next/navigation";
 import LoadingButton from "../ui/loading spinner/LoadingButton";
+import ToolTip from "../ui/tooltip/Tooltip";
+import ContainerGray from "../ui/containers/ContainerGray";
 interface Props {
   findListingOnGoogle: (placeId: string) => Promise<Place | GooglePlaceError>;
   createVenue: (venue: Place) => Promise<void>;
@@ -17,19 +19,11 @@ interface Props {
 
 const RegisterVenueForm: FC<Props> = (props) => {
   const [place, setPlace] = useState<Place | null>();
-  const [tooltipIsActive, setTooltipIsActive] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const [buttonLoading, setButtonIsLoading] = useState(false);
   const [buttonLoading2, setButtonIsLoading2] = useState(false);
 
   const router = useRouter();
-
-  const handleTooltipClick = () => {
-    setTooltipIsActive(true);
-    setTimeout(() => {
-      setTooltipIsActive(false);
-    }, 8000);
-  };
 
   const formatOpeningHours = place?.opening_hours?.weekday_text.map(
     (day, index) => {
@@ -49,7 +43,7 @@ const RegisterVenueForm: FC<Props> = (props) => {
 
   return (
     <>
-      <div className="bg-grayPrimary rounded-md p-2">
+      <div>
         <Formik
           initialValues={{ placeId: "ChIJSQmJjmo90i0RYAAftLe2Y24" }}
           onSubmit={async (values, { setSubmitting, setErrors }) => {
@@ -83,23 +77,18 @@ const RegisterVenueForm: FC<Props> = (props) => {
                   <label htmlFor="placeId" className="form-label">
                     Place ID
                   </label>
-                  <BsInfoCircle
-                    className="icon-small mx-2"
-                    onClick={handleTooltipClick}
+                  <ToolTip
+                    tooltipId="1"
+                    position="right"
+                    content={
+                      <>
+                        <p className="text-xs w-60">
+                          You can find your Place ID by following these
+                          instructions <a className="underline" target="_blank" href="https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder">here</a>.
+                        </p>
+                      </>
+                    }
                   />
-                  {tooltipIsActive && (
-                    <p className="text-white text-xs">
-                      You can find your Place ID by following these instructions
-                      on{" "}
-                      <a
-                        className="underline"
-                        target="_blank"
-                        href="https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder"
-                      >
-                        here.
-                      </a>
-                    </p>
-                  )}
                 </div>
 
                 <Field type="text" name="placeId" className="form-input" />

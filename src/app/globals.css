@@ -12,7 +12,7 @@
 
 @layer components {
   .btn-secondary-wide {
-    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md w-full
+    @apply bg-actionGray text-sm tracking-widest py-3 px-6 rounded-md w-full
   }
 }
 
@@ -94,6 +94,8 @@
     @apply text-sm text-white font-sans bg-graySecondary p-1 rounded-md mr-2 mb-2
   }
 }
+
+
 
 
 

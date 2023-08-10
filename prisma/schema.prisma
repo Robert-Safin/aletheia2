@@ -20,7 +20,7 @@ model VenuePhoto {
   cloudinaryUrl String
 
   venueId   Int
-  venue     Venue    @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  venue     Venue    @relation(fields: [venueId], references: [id], onDelete:Cascade )
   @@index([venueId], name: "venueId")
 
   createdAt DateTime @default(now())
@@ -110,6 +110,12 @@ model Venue {
 
 model SingleEvent {
   id        Int      @id @default(autoincrement())
+  name      String
+  description String @db.Text
+  date      String
+  timeTime      String
+  timeEnd      String
+
 
 
   venueId   Int
@@ -125,6 +131,21 @@ model SingleEvent {
 
 model MultipleEvent {
   id        Int      @id @default(autoincrement())
+  name      String
+  description String @db.Text
+  startDate      String
+  endDate      String
+  timeTime      String
+  timeEnd      String
+  onMonday Boolean
+  onTuesday Boolean
+  onWednesday Boolean
+  onThursday Boolean
+  onFriday Boolean
+  onSaturday Boolean
+  onSunday Boolean
+
+
 
 
   venueId   Int
@@ -140,6 +161,12 @@ model MultipleEvent {
 
 model SingleOffer {
   id        Int      @id @default(autoincrement())
+  name      String
+  description String @db.Text
+  date      String
+  timeTime      String
+  timeEnd      String
+
 
 
   venueId   Int
@@ -156,6 +183,20 @@ model SingleOffer {
 
 model MultipleOffer {
   id        Int      @id @default(autoincrement())
+  name      String
+  description String @db.Text
+  startDate      String
+  endDate      String
+  timeTime      String
+  timeEnd      String
+  onMonday Boolean
+  onTuesday Boolean
+  onWednesday Boolean
+  onThursday Boolean
+  onFriday Boolean
+  onSaturday Boolean
+  onSunday Boolean
+
 
 
   venueId   Int

@@ -1,18 +1,13 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FC, FormEvent, useCallback, useState, useTransition } from "react";
+import { FC, FormEvent,  useState, useTransition } from "react";
 import { useDropzone } from "react-dropzone";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import LoadingButton from "../ui/loading spinner/LoadingButton";
 
-export type UploadedImage = File & { preview?: string };
-
-interface CloudinaryData {
-  url: string;
-  public_id: string;
-}
+type ImageWithPreview = File & { preview?: string };
 
 interface Props {
   updateVenuePhotos: (venueId: number, base64: string[]) => Promise<void>;
@@ -29,9 +24,8 @@ const ManagementUploadPhotos: FC<Props> = (props) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [uploadedImages, setUploadedImages] = useState<CloudinaryData[]>([]);
 
-  const [files, setFiles] = useState<UploadedImage[]>([]);
+  const [files, setFiles] = useState<ImageWithPreview[]>([]);
 
   const { getRootProps, getInputProps } = useDropzone({
 
@@ -71,7 +65,7 @@ const ManagementUploadPhotos: FC<Props> = (props) => {
     setFiles(newFiles);
   };
 
-  const thumbs = files.map((file: UploadedImage, index: number) => (
+  const thumbs = files.map((file: ImageWithPreview, index: number) => (
     <div key={index}>
       <Image
         src={file.preview!}
@@ -172,4 +166,3 @@ const ManagementUploadPhotos: FC<Props> = (props) => {
 };
 
 export default ManagementUploadPhotos;
-'w-full flex flex-wrap justify-evenly py-4 px-2'

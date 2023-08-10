@@ -1,5 +1,4 @@
 import ManagementUploadPhotos, {
-  UploadedImage,
 } from "@/components/management/ManagementUploadPhotos";
 import BackLink from "@/components/ui/back link/BackLink";
 import ContainerGray from "@/components/ui/containers/ContainerGray";

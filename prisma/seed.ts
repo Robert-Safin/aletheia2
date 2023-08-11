@@ -6,8 +6,11 @@ const prisma = new PrismaClient()
 
 
 async function main() {
+  await prisma.singleEventPhoto.deleteMany({})
+  await prisma.singleEvent.deleteMany({})
 
-
+  await prisma.singleOfferPhoto.deleteMany({})
+  await prisma.singleOffer.deleteMany({})
 }
 
 

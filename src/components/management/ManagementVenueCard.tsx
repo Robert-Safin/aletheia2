@@ -1,4 +1,4 @@
-import { VenuePhoto, Venue, SingleEvent } from "@prisma/client";
+import { VenuePhoto, Venue, SingleEvent, MultipleEvent, SingleOffer, MultipleOffer } from "@prisma/client";
 import Image from "next/image";
 import { FC } from "react";
 import RatingToStars from "../ui/icons/RatingToStars";
@@ -10,10 +10,12 @@ import ImageCarousel from "../ui/image carousel/ImageCarousel";
 interface Props {
   venue: Venue & {
     venuePhotos: VenuePhoto[];
+
     singleEvents: SingleEvent[];
-    multipleEvents: SingleEvent[];
-    singleOffers: SingleEvent[];
-    multipleOffers: SingleEvent[];
+    multipleEvents: MultipleEvent[];
+
+    singleOffers: SingleOffer[];
+    multipleOffers: MultipleOffer[];
   };
 }
 

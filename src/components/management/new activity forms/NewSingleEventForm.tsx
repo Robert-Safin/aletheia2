@@ -16,8 +16,10 @@ export interface NewSingleEventFormkikData {
 interface Props {
   createNewSingleEvent: (
     values: NewSingleEventFormkikData,
-    base64: String[]
+    base64: string[],
+    venueId: string
   ) => Promise<void>;
+  venueId: string;
 }
 
 const NewSingleEventForm: FC<Props> = (props) => {
@@ -58,6 +60,8 @@ const NewSingleEventForm: FC<Props> = (props) => {
       } as NewSingleEventFormkikData}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         setError(false)
+        setErrorMessage("")
+        setButtonIsLoading(false);
 
         if (values.name.length < 1) {
           setErrors({ name: "Name is required" });
@@ -106,8 +110,7 @@ const NewSingleEventForm: FC<Props> = (props) => {
         });
 
         const base64Files = await Promise.all(filesToBase64);
-        startTransition(async()=> await props.createNewSingleEvent(values, base64Files))
-        setButtonIsLoading(false);
+        startTransition(async()=> await props.createNewSingleEvent(values, base64Files, props.venueId))
         setSubmitting(true);
       }}
     >

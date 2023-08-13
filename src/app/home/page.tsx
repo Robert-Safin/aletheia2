@@ -1,63 +1,61 @@
-"use client";
-import {  useEffect, useState } from "react";
 import { Place } from "@googlemaps/google-maps-services-js";
 import ContainerBlack from "../../components/ui/containers/ContainerBlack";
-import XScrollContainer from "../../components/home page components/XScrollContainer";
-import {HiOutlineLocationMarker} from "react-icons/hi";
-import {AiOutlineTag} from 'react-icons/ai'
 
-  export interface Coordinates {
+import HomePageResults, {
+  SearchParams,
+} from "@/components/home page components/HomePageResults";
+import { PrismaClient } from "@prisma/client";
+
+export interface Coordinates {
   latitude: number;
   longitude: number;
 }
 
+const getSearchParams = async (
+  coordinates: Coordinates,
+  searchParams: SearchParams
+) => {
+  "use server";
 
+  const maxLatitute = coordinates.latitude + searchParams.distanceKm / 111.32;
+  const minLatitute = coordinates.latitude - searchParams.distanceKm / 111.32;
 
-const HomePage = () => {
-  const [userCoordinates, setUserCoordinates] = useState<Coordinates | null>(null);
-  const [radius, setRadius] = useState<number>(500);
-  const [type, setType] = useState<string>("");
-  const [venues, setVenues] = useState<Place[]>([]);
+  const maxLongitude = coordinates.longitude + searchParams.distanceKm / 111.32;
+  const minLongitude = coordinates.longitude - searchParams.distanceKm / 111.32;
 
-  useEffect(() => {
-    if (navigator.geolocation && !userCoordinates) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserCoordinates({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
+  const prisma = new PrismaClient();
+  const venues = await prisma.venue.findMany({
+    where: {
+      latitude: {
+        lte: maxLatitute,
+        gte: minLatitute,
+      },
+      longitude: {
+        lte: maxLongitude,
+        gte: minLongitude,
+      },
+      AND: {
+        name: {
+          contains: searchParams.type,
+        },
+      },
+    },
+    include: {
+      venuePhotos: true,
+      singleEvents: true,
+      multipleEvents: true,
+      singleOffers: true,
+      multipleOffers: true,
     }
   });
+  return venues;
 
+};
 
-
-
+const HomePage = async () => {
   return (
     <ContainerBlack>
-      <XScrollContainer category="Offers Today"  icon={<AiOutlineTag className="icon-large"/>}>
-
-      </XScrollContainer>
-
-      <XScrollContainer category="Events Today" icon={<AiOutlineTag className="icon-large"/>}>
-
-      </XScrollContainer>
-
-      <XScrollContainer category="Top rated places near you" icon={<AiOutlineTag className="icon-large"/>}>
-
-      </XScrollContainer>
-
-      <XScrollContainer category="Upcoming offers" icon={<AiOutlineTag className="icon-large"/>}>
-
-      </XScrollContainer>
-
-      <XScrollContainer category="Upcoming events" icon={<AiOutlineTag className="icon-large"/>}>
-
-      </XScrollContainer>
-
-      <XScrollContainer category="Places closest to you" icon={<AiOutlineTag className="icon-large"/>}>
-
-      </XScrollContainer>
+      <HomePageResults getSearchParams={getSearchParams} />
     </ContainerBlack>
   );
 };

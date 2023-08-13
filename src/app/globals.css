@@ -31,7 +31,7 @@
 
 @layer components {
   .img-small {
-    @apply  rounded-md object-cover w-48 h-48
+    @apply  rounded-md object-cover min-w-[140px] min-h-[140px] max-w-[140px] max-h-[140px]
   }
 }
 

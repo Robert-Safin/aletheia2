@@ -45,7 +45,7 @@ const RegisterVenueForm: FC<Props> = (props) => {
     <>
       <div>
         <Formik
-          initialValues={{ placeId: "ChIJSQmJjmo90i0RYAAftLe2Y24" }}
+          initialValues={{ placeId: "" }}
           onSubmit={async (values, { setSubmitting, setErrors }) => {
             if (values.placeId.trim().length === 0) {
               setErrors({ placeId: "Place ID is required" });

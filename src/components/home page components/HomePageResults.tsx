@@ -19,7 +19,10 @@ import VenueClose from "./cards/VenueClose";
 import { IoLocationOutline } from "react-icons/io5";
 import UpcomingEvent from "./cards/UpcomingEvent";
 import { BsCalendar2WeekFill } from "react-icons/bs";
-
+import TodayEvent from "./cards/TodayEvent";
+import UpcomingOffer from "./cards/UpcomingOffer";
+import TodayOffer from "./cards/TodayOffer";
+import { LuVerified } from "react-icons/lu";
 export interface SearchParams {
   type: string;
   when: "today" | "tomorrow";
@@ -49,8 +52,8 @@ export interface PopulatedVenue extends Venue {
   multipleOffers: (MultipleOffer & {
     multipleOfferPhoto: MultipleOfferPhoto[];
   })[];
+  distanceFromUser?: string;
 }
-
 
 interface Props {
   getSearchParams: (
@@ -98,45 +101,75 @@ const HomePageResults: FC<Props> = (props) => {
         category="Offers Today"
         icon={<AiOutlineTag className="icon-large" />}
       >
-
+        {venues.flatMap((venue) => {
+          const offers = [...venue.singleOffers, ...venue.multipleOffers];
+          return offers.map((offer) => (
+            <TodayOffer key={offer.id} offer={offer} venueName={venue.name} />
+          ));
+        })}
       </XScrollContainer>
 
       <XScrollContainer
         category="Events Today"
-        icon={<AiOutlineTag className="icon-large" />}
+        icon={<BsCalendar2WeekFill className="icon-large" />}
       >
-
+        {venues.flatMap((venue) => {
+          const events = [...venue.singleEvents, ...venue.multipleEvents];
+          return events.map((event) => (
+            <TodayEvent key={event.id} event={event} venueName={venue.name} />
+          ));
+        })}
       </XScrollContainer>
 
       <XScrollContainer
         category="Top rated places near you"
-        icon={<AiOutlineTag className="icon-large" />}
+        icon={<LuVerified className="icon-large" />}
       >
-
+        {venues
+          .sort((a, b) => b.averageRating - a.averageRating)
+          .map((venue) => (
+            <VenueClose
+              key={venue.id}
+              venue={venue}
+              userCoordinates={userCoordinates}
+            />
+          ))}
       </XScrollContainer>
 
       <XScrollContainer
         category="Upcoming offers"
         icon={<AiOutlineTag className="icon-large" />}
       >
-
+        {venues.flatMap((venue) => {
+          const offers = [...venue.singleOffers, ...venue.multipleOffers];
+          return offers.map((offer) => (
+            <UpcomingOffer
+              key={offer.id}
+              offer={offer}
+              venueName={venue.name}
+            />
+          ));
+        })}
       </XScrollContainer>
 
       <XScrollContainer
         category="Upcoming events"
         icon={<BsCalendar2WeekFill className="icon-large" />}
       >
-        {venues.flatMap(venue => {
+        {venues.flatMap((venue) => {
           const events = [...venue.singleEvents, ...venue.multipleEvents];
-          return events.map(event => (
-      <UpcomingEvent key={event.id} event={event} venueName={venue.name}/>
-    ));
-})}
-
+          return events.map((event) => (
+            <UpcomingEvent
+              key={event.id}
+              event={event}
+              venueName={venue.name}
+            />
+          ));
+        })}
       </XScrollContainer>
 
       <XScrollContainer
-        category="Places closest to you"
+        category="Places close to you"
         icon={<IoLocationOutline className="icon-large" />}
       >
         {venues.map((venue) => (
@@ -152,3 +185,22 @@ const HomePageResults: FC<Props> = (props) => {
 };
 
 export default HomePageResults;
+
+const calculateDistanceFromUser = (
+  userLat: number,
+  userLong: number,
+  venueLat: number,
+  venueLong: number
+) => {
+  const p = 0.017453292519943295;
+  const c = Math.cos;
+  const a =
+    0.5 -
+    c((venueLat - userLat) * p) / 2 +
+    (c(userLat * p) * c(venueLat * p) * (1 - c((venueLong - userLong) * p))) /
+      2;
+
+  const distanceInMetres = Math.round(12742 * Math.asin(Math.sqrt(a)) * 1000);
+  const distanceInKm = (distanceInMetres / 1000).toFixed(1);
+  return distanceInKm + "km";
+};

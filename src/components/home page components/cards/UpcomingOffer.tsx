@@ -1,29 +1,29 @@
 import {
-  MultipleEvent,
-  MultipleEventPhoto,
-  SingleEvent,
-  SingleEventPhoto,
+  MultipleOffer,
+  MultipleOfferPhoto,
+  SingleOffer,
+  SingleOfferPhoto,
 } from "@prisma/client";
 import Image from "next/image";
 import { FC } from "react";
 
 interface Props {
-  event:
-    | (SingleEvent & {
-        singleEventPhoto: SingleEventPhoto[];
+  offer:
+    | (SingleOffer & {
+        singleOfferPhoto: SingleOfferPhoto[];
       })
-    | (MultipleEvent & {
-        multipleEventPhoto: MultipleEventPhoto[];
+    | (MultipleOffer & {
+        multipleOfferPhoto: MultipleOfferPhoto[];
       });
   venueName: string;
 }
 
-const UpcomingEvent: FC<Props> = (props) => {
-  if ("singleEventPhoto" in props.event) {
-    if (new Date(props.event.date) < new Date()) {
+const UpcomingOffer: FC<Props> = (props) => {
+  if ("singleOfferPhoto" in props.offer) {
+    if (new Date(props.offer.date) < new Date()) {
       return null;
     }
-    const formatDate = new Date(props.event.date).toLocaleDateString("en-GB", {
+    const formatDate = new Date(props.offer.date).toLocaleDateString("en-GB", {
       month: "short",
       day: "numeric",
     });
@@ -31,51 +31,45 @@ const UpcomingEvent: FC<Props> = (props) => {
       <div className="flex flex-col space-y-1 w-[140px]">
         <Image
           className="img-small"
-          src={props.event.singleEventPhoto[0].cloudinaryUrl}
-          alt="event photo"
+          src={props.offer.singleOfferPhoto[0].cloudinaryUrl}
+          alt="offer photo"
           width={1000}
           height={1000}
         />
-        <h2 className="secondary-header line-clamp-1">{props.event.name}</h2>
-        <p className="paragraph line-clamp-1">{props.venueName}</p>
-
-        <p className="paragraph">
-          {formatDate}, {props.event.timeStart}
-        </p>
+        <h2 className="secondary-header line-clamp-1">{props.offer.name}</h2>
+        <p className="paragraph">{props.venueName}</p>
+        <p className="small-text">{formatDate}, {props.offer.timeStart}</p>
       </div>
     );
-  } else if ("multipleEventPhoto" in props.event) {
-    const nextEventDate = getNextEventDate(props.event);
+  } else if ("multipleOfferPhoto" in props.offer) {
+    const nextEventDate = getNextEventDate(props.offer);
 
     if (!nextEventDate) {
       return null;
     }
-
     return (
       <div className="flex flex-col space-y-1 w-[140px]">
         <Image
           className="img-small"
-          src={props.event.multipleEventPhoto[0].cloudinaryUrl}
-          alt="event photo"
+          src={props.offer.multipleOfferPhoto[0].cloudinaryUrl}
+          alt="offer photo"
           width={1000}
           height={1000}
         />
-        <h2 className="secondary-header line-clamp-1">{props.event.name}</h2>
-        <p className="paragraph line-clamp-1">{props.venueName}</p>
-
-        <p className="paragraph">
-          {getNextEventDate(props.event)?.toLocaleDateString("en-GB", {
+        <h2 className="secondary-header line-clamp-1">{props.offer.name}</h2>
+        <p className="paragraph">{props.venueName}</p>
+        <p className="small-text">
+          {nextEventDate.toLocaleDateString("en-GB", {
             month: "short",
             day: "numeric",
-          })}
-          , {props.event.timeStart}
+          })}, {props.offer.timeStart}
         </p>
       </div>
     );
   }
 };
 
-export default UpcomingEvent;
+export default UpcomingOffer;
 
 const isDateInRange = (
   date: Date,
@@ -89,7 +83,7 @@ const isDateInRange = (
 
 const doesDateMatchDayConstraints = (
   date: Date,
-  event: MultipleEvent
+  event: MultipleOffer
 ): boolean => {
   const dayOfWeek = date.getUTCDay();
   switch (dayOfWeek) {
@@ -112,7 +106,7 @@ const doesDateMatchDayConstraints = (
   }
 };
 
-const getNextEventDate = (event: MultipleEvent): Date | null => {
+const getNextEventDate = (event: MultipleOffer): Date | null => {
   let date = new Date();
   date.setUTCHours(0, 0, 0, 0);
 

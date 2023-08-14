@@ -18,11 +18,12 @@ interface Props {
   venueName: string;
 }
 
-const UpcomingEvent: FC<Props> = (props) => {
+const TodayEvent: FC<Props> = (props) => {
   if ("singleEventPhoto" in props.event) {
-    if (new Date(props.event.date) < new Date()) {
+    if (new Date(props.event.date).getDate() !== new Date().getDate()) {
       return null;
     }
+
     const formatDate = new Date(props.event.date).toLocaleDateString("en-GB", {
       month: "short",
       day: "numeric",
@@ -40,14 +41,13 @@ const UpcomingEvent: FC<Props> = (props) => {
         <p className="paragraph line-clamp-1">{props.venueName}</p>
 
         <p className="paragraph">
-          {formatDate}, {props.event.timeStart}
+          {props.event.timeStart} - {props.event.timeEnd}
         </p>
       </div>
     );
   } else if ("multipleEventPhoto" in props.event) {
     const nextEventDate = getNextEventDate(props.event);
-
-    if (!nextEventDate) {
+    if (nextEventDate!.getDate() !== new Date().getDate()) {
       return null;
     }
 
@@ -64,18 +64,14 @@ const UpcomingEvent: FC<Props> = (props) => {
         <p className="paragraph line-clamp-1">{props.venueName}</p>
 
         <p className="paragraph">
-          {getNextEventDate(props.event)?.toLocaleDateString("en-GB", {
-            month: "short",
-            day: "numeric",
-          })}
-          , {props.event.timeStart}
+          {props.event.timeStart} - {props.event.timeEnd}
         </p>
       </div>
     );
   }
 };
 
-export default UpcomingEvent;
+export default TodayEvent;
 
 const isDateInRange = (
   date: Date,
@@ -115,8 +111,6 @@ const doesDateMatchDayConstraints = (
 const getNextEventDate = (event: MultipleEvent): Date | null => {
   let date = new Date();
   date.setUTCHours(0, 0, 0, 0);
-
-  date.setUTCDate(date.getUTCDate() + 1);
 
   while (
     !isDateInRange(date, event.startDate, event.endDate) ||

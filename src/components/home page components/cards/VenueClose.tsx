@@ -26,7 +26,7 @@ interface Props {
 
 const VenueClose: FC<Props> = (props) => {
 
-  const calculateDistanceFromUser = (userLat: number, userLong: number, venueLat: number, venueLong: number) => {
+    const calculateDistanceFromUser = (userLat: number, userLong: number, venueLat: number, venueLong: number) => {
     const p = 0.017453292519943295;
     const c = Math.cos;
     const a =

@@ -5,6 +5,7 @@ import {
   SingleEventPhoto,
 } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
         multipleEventPhoto: MultipleEventPhoto[];
       });
   venueName: string;
+  venueId: number;
 }
 
 const UpcomingEvent: FC<Props> = (props) => {
@@ -29,6 +31,7 @@ const UpcomingEvent: FC<Props> = (props) => {
     });
     return (
       <div className="flex flex-col space-y-1 w-[140px]">
+        <Link href={`/${props.venueId}/singleEvent/${props.event.id}`}>
         <Image
           className="img-small"
           src={props.event.singleEventPhoto[0].cloudinaryUrl}
@@ -36,6 +39,7 @@ const UpcomingEvent: FC<Props> = (props) => {
           width={1000}
           height={1000}
         />
+        </Link>
         <h2 className="secondary-header line-clamp-1">{props.event.name}</h2>
         <p className="paragraph line-clamp-1">{props.venueName}</p>
 
@@ -53,6 +57,7 @@ const UpcomingEvent: FC<Props> = (props) => {
 
     return (
       <div className="flex flex-col space-y-1 w-[140px]">
+        <Link href={`/${props.venueId}/multipleEvent/${props.event.id}`}>
         <Image
           className="img-small"
           src={props.event.multipleEventPhoto[0].cloudinaryUrl}
@@ -60,6 +65,7 @@ const UpcomingEvent: FC<Props> = (props) => {
           width={1000}
           height={1000}
         />
+        </Link>
         <h2 className="secondary-header line-clamp-1">{props.event.name}</h2>
         <p className="paragraph line-clamp-1">{props.venueName}</p>
 

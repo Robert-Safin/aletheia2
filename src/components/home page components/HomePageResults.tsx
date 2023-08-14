@@ -23,6 +23,7 @@ import TodayEvent from "./cards/TodayEvent";
 import UpcomingOffer from "./cards/UpcomingOffer";
 import TodayOffer from "./cards/TodayOffer";
 import { LuVerified } from "react-icons/lu";
+import HomePageLoader from "./HomePageLoader";
 export interface SearchParams {
   type: string;
   when: "today" | "tomorrow";
@@ -94,6 +95,12 @@ const HomePageResults: FC<Props> = (props) => {
     }
   }, [props, userCoordinates, radiusKm, type, when]);
 
+  if (venues.length === 0) {
+    return (
+      <HomePageLoader/>
+    )
+  }
+
   return (
     <>
       <SearchBar />
@@ -104,7 +111,7 @@ const HomePageResults: FC<Props> = (props) => {
         {venues.flatMap((venue) => {
           const offers = [...venue.singleOffers, ...venue.multipleOffers];
           return offers.map((offer) => (
-            <TodayOffer key={offer.id} offer={offer} venueName={venue.name} />
+            <TodayOffer key={offer.id} offer={offer} venueName={venue.name} venueId={venue.id}/>
           ));
         })}
       </XScrollContainer>
@@ -116,7 +123,7 @@ const HomePageResults: FC<Props> = (props) => {
         {venues.flatMap((venue) => {
           const events = [...venue.singleEvents, ...venue.multipleEvents];
           return events.map((event) => (
-            <TodayEvent key={event.id} event={event} venueName={venue.name} />
+            <TodayEvent key={event.id} event={event} venueName={venue.name} venueId={venue.id}/>
           ));
         })}
       </XScrollContainer>
@@ -146,7 +153,7 @@ const HomePageResults: FC<Props> = (props) => {
             <UpcomingOffer
               key={offer.id}
               offer={offer}
-              venueName={venue.name}
+              venueName={venue.name} venueId={venue.id}
             />
           ));
         })}
@@ -162,7 +169,7 @@ const HomePageResults: FC<Props> = (props) => {
             <UpcomingEvent
               key={event.id}
               event={event}
-              venueName={venue.name}
+              venueName={venue.name} venueId={venue.id}
             />
           ));
         })}
@@ -185,22 +192,3 @@ const HomePageResults: FC<Props> = (props) => {
 };
 
 export default HomePageResults;
-
-const calculateDistanceFromUser = (
-  userLat: number,
-  userLong: number,
-  venueLat: number,
-  venueLong: number
-) => {
-  const p = 0.017453292519943295;
-  const c = Math.cos;
-  const a =
-    0.5 -
-    c((venueLat - userLat) * p) / 2 +
-    (c(userLat * p) * c(venueLat * p) * (1 - c((venueLong - userLong) * p))) /
-      2;
-
-  const distanceInMetres = Math.round(12742 * Math.asin(Math.sqrt(a)) * 1000);
-  const distanceInKm = (distanceInMetres / 1000).toFixed(1);
-  return distanceInKm + "km";
-};

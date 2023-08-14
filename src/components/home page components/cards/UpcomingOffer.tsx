@@ -5,6 +5,7 @@ import {
   SingleOfferPhoto,
 } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
         multipleOfferPhoto: MultipleOfferPhoto[];
       });
   venueName: string;
+  venueId: number;
 }
 
 const UpcomingOffer: FC<Props> = (props) => {
@@ -29,6 +31,7 @@ const UpcomingOffer: FC<Props> = (props) => {
     });
     return (
       <div className="flex flex-col space-y-1 w-[140px]">
+        <Link href={`/${props.venueId}/singleOffer/${props.offer.id}`}>
         <Image
           className="img-small"
           src={props.offer.singleOfferPhoto[0].cloudinaryUrl}
@@ -36,6 +39,7 @@ const UpcomingOffer: FC<Props> = (props) => {
           width={1000}
           height={1000}
         />
+        </Link>
         <h2 className="secondary-header line-clamp-1">{props.offer.name}</h2>
         <p className="paragraph">{props.venueName}</p>
         <p className="small-text">{formatDate}, {props.offer.timeStart}</p>
@@ -49,6 +53,7 @@ const UpcomingOffer: FC<Props> = (props) => {
     }
     return (
       <div className="flex flex-col space-y-1 w-[140px]">
+        <Link href={`/${props.venueId}/multipleOffer/${props.offer.id}`}>
         <Image
           className="img-small"
           src={props.offer.multipleOfferPhoto[0].cloudinaryUrl}
@@ -56,6 +61,7 @@ const UpcomingOffer: FC<Props> = (props) => {
           width={1000}
           height={1000}
         />
+        </Link>
         <h2 className="secondary-header line-clamp-1">{props.offer.name}</h2>
         <p className="paragraph">{props.venueName}</p>
         <p className="small-text">

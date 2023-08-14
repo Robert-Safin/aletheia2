@@ -12,6 +12,7 @@ import { FC } from "react";
 import { Coordinates } from "../HomePageResults";
 import { BsCalendar2WeekFill } from "react-icons/bs";
 import { FaTags } from "react-icons/fa";
+import Link from "next/link";
 
 interface Props {
   venue: Venue & {
@@ -46,6 +47,7 @@ const VenueClose: FC<Props> = (props) => {
   );
   return (
     <div className="flex flex-col space-y-1 w-[140px]">
+      <Link href={`/${props.venue.id}`}>
       <Image
         className="img-small"
         src={props.venue.venuePhotos[0].cloudinaryUrl}
@@ -53,6 +55,7 @@ const VenueClose: FC<Props> = (props) => {
         width={1000}
         height={1000}
       />
+      </Link>
       <h1 className="secondary-header line-clamp-1">{props.venue.name}</h1>
       <div className="flex items-center justify-between">
         <RatingToStars rating={props.venue.averageRating} />

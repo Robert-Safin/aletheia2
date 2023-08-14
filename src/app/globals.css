@@ -2,103 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
   .btn-primary-wide {
-    @apply bg-actionPeach text-white text-sm tracking-widest py-3 px-6 rounded-md w-full
+    @apply bg-actionPeach text-white text-sm tracking-widest py-3 px-6 rounded-md w-full;
   }
 }
 
 @layer components {
   .btn-secondary-wide {
-    @apply bg-actionGray text-sm tracking-widest py-3 px-6 rounded-md w-full
+    @apply bg-actionGray text-sm tracking-widest py-3 px-6 rounded-md w-full;
   }
 }
 
 @layer components {
   .btn-primary-small {
-    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md
+    @apply bg-actionPeach text-white text-sm tracking-widest py-2 px-6 rounded-md;
   }
 }
 
 @layer components {
   .btn-secondary-small {
-    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md
+    @apply bg-actionGray text-sm tracking-widest py-2 px-6 rounded-md;
   }
 }
 
-
 @layer components {
   .img-small {
-    @apply  rounded-md object-cover min-w-[140px] min-h-[140px] max-w-[140px] max-h-[140px]
+    @apply rounded-md object-cover min-w-[140px] min-h-[140px] max-w-[140px] max-h-[140px];
   }
 }
 
 @layer components {
   .img-large {
-    @apply  rounded-md object-cover w-[355px] h-[355px]
+    @apply rounded-md object-cover w-[355px] h-[355px];
   }
 }
 
 @layer components {
   .icon-small {
-    @apply  text-xs text-white
+    @apply text-xs text-white;
   }
 }
 
 @layer components {
   .icon-large {
-    @apply  text-2xl text-white
+    @apply text-2xl text-white;
   }
 }
 
 @layer components {
   .form-input {
-    @apply  text-black rounded-md py-1 px-2
+    @apply text-black rounded-md py-1 px-2;
   }
 }
 
 @layer components {
   .form-label {
-    @apply text-white
+    @apply text-white;
   }
 }
 
 @layer components {
   .main-header {
-    @apply text-xl text-white tracking-wide font-serif
+    @apply text-xl text-white tracking-wide font-serif;
   }
 }
 
 @layer components {
   .secondary-header {
-    @apply text-base text-white font-mono
+    @apply text-base text-white font-mono;
   }
 }
 
 @layer components {
   .paragraph {
-    @apply text-sm text-white font-sans
+    @apply text-sm text-white font-sans;
   }
 }
 
 @layer components {
   .small-text {
-    @apply text-xs text-white font-sans
+    @apply text-xs text-white font-sans;
   }
 }
 
 @layer components {
   .category {
-    @apply text-sm text-white font-sans bg-graySecondary p-1 rounded-md mr-2 mb-2
+    @apply text-sm text-white font-sans bg-graySecondary p-1 rounded-md mr-2 mb-2;
   }
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: "#F87171";
+}
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #555;
+}
 
-
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
 
 
 /* :root {

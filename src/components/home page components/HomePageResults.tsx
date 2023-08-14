@@ -5,14 +5,21 @@ import XScrollContainer from "./XScrollContainer";
 import { FC, useEffect, useState } from "react";
 import {
   MultipleEvent,
+  MultipleEventPhoto,
   MultipleOffer,
+  MultipleOfferPhoto,
   SingleEvent,
+  SingleEventPhoto,
   SingleOffer,
+  SingleOfferPhoto,
   Venue,
   VenuePhoto,
 } from "@prisma/client";
 import VenueClose from "./cards/VenueClose";
-import {IoLocationOutline} from "react-icons/io5";
+import { IoLocationOutline } from "react-icons/io5";
+import UpcomingEvent from "./cards/UpcomingEvent";
+import { BsCalendar2WeekFill } from "react-icons/bs";
+
 export interface SearchParams {
   type: string;
   when: "today" | "tomorrow";
@@ -25,14 +32,25 @@ export interface Coordinates {
 }
 
 export interface PopulatedVenue extends Venue {
+  venuePhotos: VenuePhoto[];
 
-    venuePhotos: VenuePhoto[];
-    singleEvents: SingleEvent[];
-    multipleEvents: MultipleEvent[];
-    singleOffers: SingleOffer[];
-    multipleOffers: MultipleOffer[];
+  singleEvents: (SingleEvent & {
+    singleEventPhoto: SingleEventPhoto[];
+  })[];
 
+  multipleEvents: (MultipleEvent & {
+    multipleEventPhoto: MultipleEventPhoto[];
+  })[];
+
+  singleOffers: (SingleOffer & {
+    singleOfferPhoto: SingleOfferPhoto[];
+  })[];
+
+  multipleOffers: (MultipleOffer & {
+    multipleOfferPhoto: MultipleOfferPhoto[];
+  })[];
 }
+
 
 interface Props {
   getSearchParams: (
@@ -106,8 +124,14 @@ const HomePageResults: FC<Props> = (props) => {
 
       <XScrollContainer
         category="Upcoming events"
-        icon={<AiOutlineTag className="icon-large" />}
+        icon={<BsCalendar2WeekFill className="icon-large" />}
       >
+        {venues.flatMap(venue => {
+          const events = [...venue.singleEvents, ...venue.multipleEvents];
+          return events.map(event => (
+      <UpcomingEvent key={event.id} event={event} venueName={venue.name}/>
+    ));
+})}
 
       </XScrollContainer>
 
@@ -116,7 +140,11 @@ const HomePageResults: FC<Props> = (props) => {
         icon={<IoLocationOutline className="icon-large" />}
       >
         {venues.map((venue) => (
-          <VenueClose key={venue.id} venue={venue} userCoordinates={userCoordinates} />
+          <VenueClose
+            key={venue.id}
+            venue={venue}
+            userCoordinates={userCoordinates}
+          />
         ))}
       </XScrollContainer>
     </>

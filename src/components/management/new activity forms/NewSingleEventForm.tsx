@@ -4,6 +4,7 @@ import { FC, useRef, useState, useTransition } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoadingButton from "@/components/ui/loading spinner/LoadingButton";
 import ImageUploader from "@/components/image uploader/ImageUploader";
+import { useRouter } from "next/navigation";
 
 export interface NewSingleEventFormkikData {
   name: string;
@@ -23,6 +24,8 @@ interface Props {
 }
 
 const NewSingleEventForm: FC<Props> = (props) => {
+
+  const router = useRouter();
   const [buttonLoading, setButtonIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -112,6 +115,8 @@ const NewSingleEventForm: FC<Props> = (props) => {
         const base64Files = await Promise.all(filesToBase64);
         startTransition(async()=> await props.createNewSingleEvent(values, base64Files, props.venueId))
         setSubmitting(true);
+        router.refresh()
+
       }}
     >
       {({ isSubmitting }) => (

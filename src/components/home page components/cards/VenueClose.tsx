@@ -45,7 +45,7 @@ const VenueClose: FC<Props> = (props) => {
     props.venue.longitude
   );
   return (
-    <div className="flex flex-col space-y-1">
+    <div className="flex flex-col space-y-1 w-[140px]">
       <Image
         className="img-small"
         src={props.venue.venuePhotos[0].cloudinaryUrl}

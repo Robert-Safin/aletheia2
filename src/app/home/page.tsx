@@ -42,14 +42,29 @@ const getSearchParams = async (
     },
     include: {
       venuePhotos: true,
-      singleEvents: true,
-      multipleEvents: true,
-      singleOffers: true,
-      multipleOffers: true,
-    }
+      singleEvents: {
+        include: {
+          singleEventPhoto: true,
+        },
+      },
+      multipleEvents: {
+        include: {
+          multipleEventPhoto: true,
+        },
+      },
+      singleOffers: {
+        include: {
+          singleOfferPhoto: true,
+        },
+      },
+      multipleOffers: {
+        include: {
+          multipleOfferPhoto: true,
+        },
+      },
+    },
   });
   return venues;
-
 };
 
 const HomePage = async () => {

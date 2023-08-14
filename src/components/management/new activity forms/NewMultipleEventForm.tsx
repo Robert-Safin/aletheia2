@@ -4,6 +4,7 @@ import { FC, useState, useTransition } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoadingButton from "@/components/ui/loading spinner/LoadingButton";
 import ImageUploader from "@/components/image uploader/ImageUploader";
+import { useRouter } from "next/navigation";
 
 export interface NewMultipleEventFormkikData {
   name: string;
@@ -30,6 +31,7 @@ interface Props {
 }
 
 const NewMultipleEventForm: FC<Props> = (props) => {
+  const router = useRouter();
   const [buttonLoading, setButtonIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -158,6 +160,7 @@ const NewMultipleEventForm: FC<Props> = (props) => {
             )
         );
         setSubmitting(true);
+        router.refresh()
       }}
     >
       {({ isSubmitting, setFieldValue, values }) => (

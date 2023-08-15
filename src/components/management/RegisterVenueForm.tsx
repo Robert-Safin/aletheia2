@@ -121,7 +121,7 @@ const RegisterVenueForm: FC<Props> = (props) => {
           <div className="bg-grayPrimary rounded-md p-2 my-2">
             <h2 className="secondary-header">{place!.name!}</h2>
             <div className="flex space-x-4 items-center mb-2">
-              <RatingToStars rating={place.rating!} />
+              <RatingToStars rating={place.rating!} iconClass="icon-small"/>
               <p className="small-text">
                 {String(place.user_ratings_total) + " ratings"}
               </p>

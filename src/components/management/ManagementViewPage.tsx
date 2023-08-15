@@ -87,7 +87,7 @@ const ManagementViewPage: FC<Props> = (props) => {
         <ImageCarousel photos={props.venue.venuePhotos} />
         <h1 className="main-header mt-2">{props.venue?.name}</h1>
         <div className="flex items-center mt-2 mb-1">
-          <RatingToStars rating={props.venue!.averageRating} />
+          <RatingToStars rating={props.venue!.averageRating} iconClass="icon-small"/>
           <Link
             href={props.venue.googleMapsUrl}
             target="_blank"

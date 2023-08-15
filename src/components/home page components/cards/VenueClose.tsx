@@ -58,7 +58,7 @@ const VenueClose: FC<Props> = (props) => {
       </Link>
       <h1 className="secondary-header line-clamp-1">{props.venue.name}</h1>
       <div className="flex items-center justify-between">
-        <RatingToStars rating={props.venue.averageRating} />
+        <RatingToStars rating={props.venue.averageRating} iconClass="icon-small"/>
         <p className="small-text">{distanceFromUser}</p>
       </div>
 

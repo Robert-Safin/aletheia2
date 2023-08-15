@@ -26,7 +26,7 @@ const VenueManagementCard: FC<Props> = async (props) => {
 
       <h2 className="secondary-header mb-2">{props.venue.name}</h2>
       <div className="flex items-center">
-        <RatingToStars rating={props.venue.averageRating} />
+        <RatingToStars rating={props.venue.averageRating} iconClass="icon-small"/>
         <Link
           href={props.venue.googleMapsUrl}
           target="_blank"

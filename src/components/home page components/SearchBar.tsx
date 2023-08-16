@@ -42,16 +42,16 @@ const SearchBar: FC<Props> = (props) => {
             <ImSearch className="text-2xl" />
             <input className="w-full pl-2" type="text" placeholder="Search" onChange={e=> setSearchTerm(e.target.value)}/>
           </div>
-          <p className="small-text my-2">When</p>
+          {/* <p className="small-text my-2">When</p>
           <div className="flex">
             <p onClick={()=> setWhen("today")} className={when === "today" ? "category bg-actionPeach" : "category"}>Today</p>
             <p onClick={()=> setWhen("tomorrow")} className={when === "tomorrow" ? "category bg-actionPeach" : "category"}>Tomorrow</p>
-          </div>
+          </div> */}
           <p className="small-text my-2">Max distance</p>
           <Slider
             min={1}
             max={10}
-            step={0.5}
+            step={1}
             value={distanceKm}
             onChange={(event) => setDistanceKm(Number(event.valueOf()))}
             handleStyle={{

@@ -102,7 +102,6 @@ const HomePageResults: FC<Props> = (props) => {
 
 
   const customSearch = (searchParams: SearchParams) => {
-    console.log('searched');
 
     setRadiusKm(searchParams.distanceKm);
     setSearchTerm(searchParams.searchTerm);

@@ -1,6 +1,7 @@
 import VenueInfoCard from "@/components/VenueInfoCard/VenueInfoCard";
 import BackLink from "@/components/ui/back link/BackLink";
 import ContainerBlack from "@/components/ui/containers/ContainerBlack";
+import CopyToClipboardButton from "@/components/ui/fancy buttons/CopyToClipboardButton";
 import ImageCarousel from "@/components/ui/image carousel/ImageCarousel";
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
@@ -24,15 +25,14 @@ const fetchMultipleOffer = async (multipleOfferId: string) => {
       venue: {
         include: {
           venuePhotos: true,
-        }
+        },
       },
     },
   });
   return multipleOffer;
-}
+};
 
-
-const ShowMultipleOfferPage: FC<Props> = async(props) => {
+const ShowMultipleOfferPage: FC<Props> = async (props) => {
   const multipleOffer = await fetchMultipleOffer(props.params.multipleOfferId);
   const nextDate = getNextOfferDate(
     multipleOffer!.startDate,
@@ -47,23 +47,28 @@ const ShowMultipleOfferPage: FC<Props> = async(props) => {
       onSaturday: multipleOffer!.onSaturday,
     }
   );
-  const formatDate = nextDate!.toLocaleDateString('en-US', {
-    day: 'numeric',
-    year: 'numeric',
-    month: 'long',
-  })
+  const formatDate = nextDate!.toLocaleDateString("en-US", {
+    day: "numeric",
+    year: "numeric",
+    month: "long",
+  });
 
   return (
     <ContainerBlack>
       <BackLink href="/home" name="Home" />
       <div className="bg-grayPrimary rounded-md p-4">
         <h1 className="main-header mb-2">{multipleOffer?.name}</h1>
-        <ImageCarousel photos={multipleOffer!.multipleOfferPhoto}/>
+        <ImageCarousel photos={multipleOffer!.multipleOfferPhoto} />
         <div className="flex my-4">
           <div className="w-full space-y-2">
             <div>
-            <p className="paragraph">Location:</p>
-            <Link href={`/${props.params.venueId}`} className="small-text line-clamp-1">{multipleOffer?.venue.name}</Link>
+              <p className="paragraph">Location:</p>
+              <Link
+                href={`/${props.params.venueId}`}
+                className="small-text line-clamp-1"
+              >
+                {multipleOffer?.venue.name}
+              </Link>
             </div>
             <div>
               <p className="paragraph">Offers claimed:</p>
@@ -72,22 +77,25 @@ const ShowMultipleOfferPage: FC<Props> = async(props) => {
           </div>
           <div className="w-full space-y-2">
             <div>
-            <p className="paragraph">Next date:</p>
-            <p className="small-text">{formatDate}</p>
+              <p className="paragraph">Next date:</p>
+              <p className="small-text">{formatDate}</p>
             </div>
             <div>
               <p className="paragraph">Time:</p>
-              <p className="small-text">{multipleOffer?.timeStart} - {multipleOffer?.timeEnd}</p>
+              <p className="small-text">
+                {multipleOffer?.timeStart} - {multipleOffer?.timeEnd}
+              </p>
             </div>
           </div>
         </div>
-        <p className="paragraph">{multipleOffer?.description}</p>
+        <p className="paragraph">About offer</p>
+        <p className="small-text">{multipleOffer?.description}</p>
       </div>
       <div className="flex py-2 space-x-2">
-        <button className="btn-secondary-wide">SHARE</button>
+        <CopyToClipboardButton />
         <button className="btn-primary-wide">CLAIM</button>
       </div>
-      <VenueInfoCard venue={multipleOffer!.venue!}/>
+      <VenueInfoCard venue={multipleOffer!.venue!} />
     </ContainerBlack>
   );
 };

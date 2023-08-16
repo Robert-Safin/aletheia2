@@ -34,7 +34,8 @@
 
 @layer components {
   .img-large {
-    @apply rounded-md object-cover w-[355px] h-[355px];
+    @apply rounded-md object-cover w-[355px] h-[355px]
+    md:w-[500px] md:h-[500px]
   }
 }
 
@@ -92,25 +93,28 @@
   }
 }
 
-/* width */
+/* width overflow slider */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
-/* Track */
+/* Track overflow slider */
 ::-webkit-scrollbar-track {
   background: "#F87171";
 }
 
-/* Handle */
+/* Handle overflow slider */
 ::-webkit-scrollbar-thumb {
   background: #555;
 }
 
-/* Handle on hover */
+/* Handle on hover overflow slider */
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
 }
+
+
+
 
 
 /* :root {

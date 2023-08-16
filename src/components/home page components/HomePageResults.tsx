@@ -25,7 +25,7 @@ import TodayOffer from "./cards/TodayOffer";
 import { LuVerified } from "react-icons/lu";
 import HomePageLoader from "./HomePageLoader";
 export interface SearchParams {
-  type: string;
+  searchTerm: string;
   when: "today" | "tomorrow";
   distanceKm: number;
 }
@@ -57,7 +57,7 @@ export interface PopulatedVenue extends Venue {
 }
 
 interface Props {
-  getSearchParams: (
+  initialSearch: (
     coordinates: Coordinates,
     searchParams: SearchParams
   ) => Promise<PopulatedVenue[]>;
@@ -68,9 +68,11 @@ const HomePageResults: FC<Props> = (props) => {
     null
   );
   const [radiusKm, setRadiusKm] = useState<number>(5);
-  const [type, setType] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [when, setWhen] = useState<"today" | "tomorrow">("today");
   const [venues, setVenues] = useState<PopulatedVenue[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
 
   useEffect(() => {
     if (navigator.geolocation && !userCoordinates) {
@@ -84,26 +86,49 @@ const HomePageResults: FC<Props> = (props) => {
 
     if (userCoordinates) {
       const populareHomePage = async () => {
-        const venues = await props.getSearchParams(userCoordinates, {
-          type: type,
+        setLoading(true);
+        const venues = await props.initialSearch(userCoordinates, {
+          searchTerm: searchTerm,
           when: when,
           distanceKm: radiusKm,
         });
+
         setVenues(venues);
+        setLoading(false);
       };
       populareHomePage();
     }
-  }, [props, userCoordinates, radiusKm, type, when]);
+  }, [props, userCoordinates, radiusKm, searchTerm, when]);
 
-  if (venues.length === 0) {
+
+  const customSearch = (searchParams: SearchParams) => {
+    console.log('searched');
+
+    setRadiusKm(searchParams.distanceKm);
+    setSearchTerm(searchParams.searchTerm);
+    setWhen(searchParams.when);
+  }
+
+  if (loading) {
     return (
       <HomePageLoader/>
     )
   }
 
+  if (venues.length === 0) {
+    return (
+      <>
+        <SearchBar customSearch={customSearch}/>
+        <p className="text-gray-300 text-center">No results found</p>
+      </>
+
+    );
+  }
+
+
   return (
     <>
-      <SearchBar />
+      <SearchBar customSearch={customSearch}/>
       <XScrollContainer
         category="Offers Today"
         icon={<AiOutlineTag className="icon-large" />}

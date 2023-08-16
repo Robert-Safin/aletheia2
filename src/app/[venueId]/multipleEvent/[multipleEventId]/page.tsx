@@ -67,7 +67,7 @@ const ShowMultipleEventPage: FC<Props> = async(props) => {
             </div>
             <div>
               <p className="paragraph">Offers claimed:</p>
-              <p className="small-text">x/y</p>
+              <p className="small-text">NA</p>
             </div>
           </div>
           <div className="w-full space-y-2">

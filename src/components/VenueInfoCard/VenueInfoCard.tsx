@@ -14,13 +14,13 @@ const VenueInfoCard: FC<Props> = (props) => {
     <div className="bg-grayPrimary rounded-md p-4">
       <h1 className="main-header">Venue</h1>
       <h1 className="main-header my-2">{props.venue.name}</h1>
-      <div className="flex items-center space-x-2 mb-2">
+      <Link href={props.venue.googleMapsUrl} className="flex items-center space-x-2 mb-2">
         <RatingToStars
           rating={props.venue.averageRating}
           iconClass="icon-large"
         />
         <p className="small-text">{props.venue.totalReviews} Reviews</p>
-      </div>
+      </Link>
       <Link href={`/${props.venue.id}`}>
         <ImageCarousel photos={props.venue.venuePhotos} />
       </Link>

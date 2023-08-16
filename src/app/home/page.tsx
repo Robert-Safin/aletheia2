@@ -11,7 +11,7 @@ export interface Coordinates {
   longitude: number;
 }
 
-const getSearchParams = async (
+const initialSearch = async (
   coordinates: Coordinates,
   searchParams: SearchParams
 ) => {
@@ -36,7 +36,7 @@ const getSearchParams = async (
       },
       AND: {
         name: {
-          contains: searchParams.type,
+          contains: searchParams.searchTerm,
         },
       },
     },
@@ -64,13 +64,17 @@ const getSearchParams = async (
       },
     },
   });
+  await prisma.$disconnect();
+
   return venues;
+
 };
+
 
 const HomePage = async () => {
   return (
     <ContainerBlack>
-      <HomePageResults getSearchParams={getSearchParams} />
+      <HomePageResults initialSearch={initialSearch} />
     </ContainerBlack>
   );
 };

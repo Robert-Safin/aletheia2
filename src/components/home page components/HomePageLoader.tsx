@@ -1,7 +1,5 @@
 "use client";
 import { FC } from "react";
-import ContainerBlack from "../ui/containers/ContainerBlack";
-import SearchBar from "./SearchBar";
 import XScrollContainer from "./XScrollContainer";
 import { AiOutlineTag } from "react-icons/ai";
 import { BsCalendar2WeekFill } from "react-icons/bs";
@@ -11,7 +9,6 @@ import { IoLocationOutline } from "react-icons/io5";
 const HomePageLoader: FC = () => {
   return (
     <>
-      <SearchBar />
       <XScrollContainer
         category="Offers Today"
         icon={<AiOutlineTag className="icon-large" />}
@@ -63,70 +60,70 @@ const HomePagePulseContainer: FC = () => {
   return (
     <>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     <div className="flex flex-col space-y-1">
-    <div className="animate-pulse w-[140px] h-[140px] bg-gray-600 rounded-md"/>
-    <div className="animate-pulse w-full h-[20px] bg-gray-700"/>
-    <div className="animate-pulse w-2/3 h-[10px] bg-gray-700"/>
-    <div className="animate-pulse w-1/2 h-[10px] bg-gray-700"/>
+    <div className="animate-pulse w-[140px] h-[140px] bg-gray-500 rounded-md"/>
+    <div className="animate-pulse w-full h-[20px] bg-gray-600"/>
+    <div className="animate-pulse w-2/3 h-[10px] bg-gray-600"/>
+    <div className="animate-pulse w-1/2 h-[10px] bg-gray-600"/>
     </div>
     </>
 

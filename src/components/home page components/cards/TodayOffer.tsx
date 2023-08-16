@@ -1,10 +1,7 @@
 import {
   MultipleEvent,
-  MultipleEventPhoto,
   MultipleOffer,
   MultipleOfferPhoto,
-  SingleEvent,
-  SingleEventPhoto,
   SingleOffer,
   SingleOfferPhoto,
 } from "@prisma/client";
@@ -25,6 +22,7 @@ interface Props {
 }
 
 const TodayOffer: FC<Props> = (props) => {
+
   if ("singleOfferPhoto" in props.offer) {
     if (new Date(props.offer.date).getDate() !== new Date().getDate()) {
       return null;
@@ -55,7 +53,7 @@ const TodayOffer: FC<Props> = (props) => {
     );
   } else if ("multipleOfferPhoto" in props.offer) {
     const nextEventDate = getNextEventDate(props.offer);
-    if (nextEventDate!.getDate() !== new Date().getDate()) {
+    if (!nextEventDate || nextEventDate.getDate() !== new Date().getDate()) {
       return null;
     }
 

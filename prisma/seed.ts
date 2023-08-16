@@ -11,6 +11,16 @@ async function main() {
 
   await prisma.singleOfferPhoto.deleteMany({})
   await prisma.singleOffer.deleteMany({})
+
+  await prisma.multipleEventPhoto.deleteMany({})
+  await prisma.multipleEvent.deleteMany({})
+
+  await prisma.multipleOfferPhoto.deleteMany({})
+  await prisma.multipleOffer.deleteMany({})
+
+  await prisma.venuePhoto.deleteMany({})
+  await prisma.venue.deleteMany({})
+
 }
 
 

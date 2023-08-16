@@ -67,7 +67,7 @@ const HomePageResults: FC<Props> = (props) => {
   const [userCoordinates, setUserCoordinates] = useState<Coordinates | null>(
     null
   );
-  const [radiusKm, setRadiusKm] = useState<number>(5);
+  const [radiusKm, setRadiusKm] = useState<number>(10000);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [when, setWhen] = useState<"today" | "tomorrow">("today");
   const [venues, setVenues] = useState<PopulatedVenue[]>([]);

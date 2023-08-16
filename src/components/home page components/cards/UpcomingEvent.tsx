@@ -22,7 +22,13 @@ interface Props {
 
 const UpcomingEvent: FC<Props> = (props) => {
   if ("singleEventPhoto" in props.event) {
-    if (new Date(props.event.date) < new Date()) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const offerDate = new Date(props.event.date);
+    offerDate.setHours(0, 0, 0, 0);
+
+    if (offerDate <= today) {
       return null;
     }
     const formatDate = new Date(props.event.date).toLocaleDateString("en-GB", {

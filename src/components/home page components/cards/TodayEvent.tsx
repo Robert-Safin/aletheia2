@@ -51,7 +51,7 @@ const TodayEvent: FC<Props> = (props) => {
     );
   } else if ("multipleEventPhoto" in props.event) {
     const nextEventDate = getNextEventDate(props.event);
-    if (nextEventDate!.getDate() !== new Date().getDate()) {
+    if (!nextEventDate || nextEventDate.getDate() !== new Date().getDate()) {
       return null;
     }
 

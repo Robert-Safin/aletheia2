@@ -17,7 +17,8 @@ const initialSearch = async (
 ) => {
   "use server";
 
-  const maxLatitute = coordinates.latitude +( searchParams.distanceKm / 111.32);
+
+  const maxLatitute = coordinates.latitude + (searchParams.distanceKm / 111.32);
   const minLatitute = coordinates.latitude - (searchParams.distanceKm / 111.32);
 
   const maxLongitude = coordinates.longitude + (searchParams.distanceKm / 111.32);

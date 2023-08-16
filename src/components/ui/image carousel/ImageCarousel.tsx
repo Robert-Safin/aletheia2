@@ -4,11 +4,11 @@ import { FC } from 'react'
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Image from 'next/image';
-import { VenuePhoto } from '@prisma/client';
+import { MultipleEventPhoto, MultipleOfferPhoto, SingleEventPhoto, SingleOfferPhoto, VenuePhoto } from '@prisma/client';
 
 
 interface Props {
-  photos: VenuePhoto[]
+  photos: VenuePhoto[] | SingleOfferPhoto[] | MultipleOfferPhoto[]  | SingleEventPhoto[] | MultipleEventPhoto[]
 }
 
 const ImageCarousel:FC<Props> = (props) => {

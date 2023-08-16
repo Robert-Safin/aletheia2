@@ -9,6 +9,7 @@ import { FC } from "react";
 const ManagementPage: FC = async () => {
   const user = await currentUser();
 
+
   const prisma = new PrismaClient();
   const venues = await prisma.venue.findMany({
     where: {

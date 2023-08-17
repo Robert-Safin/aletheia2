@@ -11,7 +11,7 @@ interface Props {
 
 const SearchBar: FC<Props> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [distanceKm, setDistanceKm] = useState<number>(1000);
+  const [distanceKm, setDistanceKm] = useState<number>(20000);
   const [when, setWhen] = useState<"today" | "tomorrow">("today");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -51,7 +51,7 @@ const SearchBar: FC<Props> = (props) => {
           <p className="small-text my-2">Max distance</p>
           <Slider
             min={1}
-            max={10000}
+            max={20000}
             step={1}
             value={distanceKm}
             onChange={(event) => setDistanceKm(Number(event.valueOf()))}

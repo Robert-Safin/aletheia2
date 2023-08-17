@@ -16,8 +16,8 @@ datasource db {
 
 model VenuePhoto {
   id        Int      @id @default(autoincrement())
-  cloudinaryPublicId String
-  cloudinaryUrl String
+  cloudinaryPublicId String @db.Text
+  cloudinaryUrl String @db.Text
 
   venueId   Int
   venue     Venue    @relation(fields: [venueId], references: [id], onDelete:Cascade )
@@ -29,8 +29,8 @@ model VenuePhoto {
 
 model SingleEventPhoto {
   id        Int      @id @default(autoincrement())
-  cloudinaryPublicId String
-  cloudinaryUrl String
+  cloudinaryPublicId String @db.Text
+  cloudinaryUrl String @db.Text
 
   singleEventId   Int
   singleEvent     SingleEvent    @relation(fields: [singleEventId], references: [id], onDelete: Cascade)
@@ -42,8 +42,8 @@ model SingleEventPhoto {
 
 model MultipleEventPhoto {
   id        Int      @id @default(autoincrement())
-  cloudinaryPublicId String
-  cloudinaryUrl String
+  cloudinaryPublicId String @db.Text
+  cloudinaryUrl String @db.Text
 
   multipleEventId   Int
   multipleEvent     MultipleEvent    @relation(fields: [multipleEventId], references: [id], onDelete: Cascade)
@@ -55,8 +55,8 @@ model MultipleEventPhoto {
 
 model SingleOfferPhoto {
   id        Int      @id @default(autoincrement())
-  cloudinaryPublicId String
-  cloudinaryUrl String
+  cloudinaryPublicId String @db.Text
+  cloudinaryUrl String @db.Text
 
   singleOfferId   Int
   singleOffer     SingleOffer    @relation(fields: [singleOfferId], references: [id], onDelete: Cascade)
@@ -68,8 +68,8 @@ model SingleOfferPhoto {
 
 model MultipleOfferPhoto {
   id        Int      @id @default(autoincrement())
-  cloudinaryPublicId String
-  cloudinaryUrl String
+  cloudinaryPublicId String @db.Text
+  cloudinaryUrl String @db.Text
 
   multipleOfferId   Int
   multipleOffer     MultipleOffer    @relation(fields: [multipleOfferId], references: [id], onDelete: Cascade)

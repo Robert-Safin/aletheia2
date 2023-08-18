@@ -87,7 +87,7 @@ const Map: FC<Props> = (props) => {
         </MapGL>
 
         {infoIsOpen && (
-          <div className="container absolute bottom-0 w-full">
+          <div className="container absolute bottom-0 w-full h-1/2 z-10">
             <VenueInfoCard venue={venueInfo!} />
           </div>
         )}

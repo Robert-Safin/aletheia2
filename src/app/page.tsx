@@ -21,7 +21,6 @@ const RootPage = async () => {
         <Link className="btn-primary-small" href={`https://amazed-muskox-87.accounts.dev/sign-up`}>
           Sign up
         </Link>
-        <SignOutButton/>
       </div>
     </div>
   );

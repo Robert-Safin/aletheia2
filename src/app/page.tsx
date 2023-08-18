@@ -14,13 +14,14 @@ const RootPage = async () => {
         Discover events and offers next to you
       </h2>
       <div className="flex justify-evenly">
-        <Link className="btn-primary-small" href={`/signin`}>
+        <Link className="btn-primary-small" href={`https://amazed-muskox-87.accounts.dev/sign-in`}>
           Sign in
         </Link>
 
-        <Link className="btn-primary-small" href={`/signup`}>
+        <Link className="btn-primary-small" href={`https://amazed-muskox-87.accounts.dev/sign-up`}>
           Sign up
         </Link>
+        <SignOutButton/>
       </div>
     </div>
   );

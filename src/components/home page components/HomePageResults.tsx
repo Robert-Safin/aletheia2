@@ -53,7 +53,6 @@ export interface PopulatedVenue extends Venue {
   multipleOffers: (MultipleOffer & {
     multipleOfferPhoto: MultipleOfferPhoto[];
   })[];
-  distanceFromUser?: string;
 }
 
 interface Props {
@@ -72,7 +71,6 @@ const HomePageResults: FC<Props> = (props) => {
   const [when, setWhen] = useState<"today" | "tomorrow">("today");
   const [venues, setVenues] = useState<PopulatedVenue[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
 
   useEffect(() => {
     if (navigator.geolocation && !userCoordinates) {
@@ -100,34 +98,28 @@ const HomePageResults: FC<Props> = (props) => {
     }
   }, [props, userCoordinates, radiusKm, searchTerm, when]);
 
-
   const customSearch = (searchParams: SearchParams) => {
-
     setRadiusKm(searchParams.distanceKm);
     setSearchTerm(searchParams.searchTerm);
     setWhen(searchParams.when);
-  }
+  };
 
   if (loading) {
-    return (
-      <HomePageLoader/>
-    )
+    return <HomePageLoader />;
   }
 
   if (venues.length === 0) {
     return (
       <>
-        <SearchBar customSearch={customSearch}/>
+        <SearchBar customSearch={customSearch} />
         <p className="text-gray-300 text-center">No results found</p>
       </>
-
     );
   }
 
-
   return (
     <>
-      <SearchBar customSearch={customSearch}/>
+      <SearchBar customSearch={customSearch} />
       <XScrollContainer
         category="Offers Today"
         icon={<AiOutlineTag className="icon-large" />}
@@ -135,7 +127,12 @@ const HomePageResults: FC<Props> = (props) => {
         {venues.flatMap((venue) => {
           const offers = [...venue.singleOffers, ...venue.multipleOffers];
           return offers.map((offer) => (
-            <TodayOffer key={offer.id} offer={offer} venueName={venue.name} venueId={venue.id}/>
+            <TodayOffer
+              key={offer.id}
+              offer={offer}
+              venueName={venue.name}
+              venueId={venue.id}
+            />
           ));
         })}
       </XScrollContainer>
@@ -147,7 +144,12 @@ const HomePageResults: FC<Props> = (props) => {
         {venues.flatMap((venue) => {
           const events = [...venue.singleEvents, ...venue.multipleEvents];
           return events.map((event) => (
-            <TodayEvent key={event.id} event={event} venueName={venue.name} venueId={venue.id}/>
+            <TodayEvent
+              key={event.id}
+              event={event}
+              venueName={venue.name}
+              venueId={venue.id}
+            />
           ));
         })}
       </XScrollContainer>
@@ -177,7 +179,8 @@ const HomePageResults: FC<Props> = (props) => {
             <UpcomingOffer
               key={offer.id}
               offer={offer}
-              venueName={venue.name} venueId={venue.id}
+              venueName={venue.name}
+              venueId={venue.id}
             />
           ));
         })}
@@ -193,7 +196,8 @@ const HomePageResults: FC<Props> = (props) => {
             <UpcomingEvent
               key={event.id}
               event={event}
-              venueName={venue.name} venueId={venue.id}
+              venueName={venue.name}
+              venueId={venue.id}
             />
           ));
         })}
@@ -203,16 +207,44 @@ const HomePageResults: FC<Props> = (props) => {
         category="Places close to you"
         icon={<IoLocationOutline className="icon-large" />}
       >
-        {venues.map((venue) => (
-          <VenueClose
-            key={venue.id}
-            venue={venue}
-            userCoordinates={userCoordinates}
-          />
-        ))}
+        {venues
+          .slice()
+          .sort(
+            (a, b) =>
+              haversineDistance(userCoordinates!, {
+                latitude: a.latitude,
+                longitude: a.longitude,
+              }) -
+              haversineDistance(userCoordinates!, {
+                latitude: b.latitude,
+                longitude: b.longitude,
+              })
+          )
+          .map((venue) => (
+            <VenueClose
+              key={venue.id}
+              venue={venue}
+              userCoordinates={userCoordinates}
+            />
+          ))}
       </XScrollContainer>
     </>
   );
 };
 
 export default HomePageResults;
+
+function haversineDistance(coord1: Coordinates, coord2: Coordinates): number {
+  const R = 6371; // Radius of the Earth in kilometers
+  const dLat = (coord2.latitude - coord1.latitude) * (Math.PI / 180);
+  const dLon = (coord2.longitude - coord1.longitude) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(coord1.latitude * (Math.PI / 180)) *
+      Math.cos(coord2.latitude * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in kilometers
+  return distance;
+}
